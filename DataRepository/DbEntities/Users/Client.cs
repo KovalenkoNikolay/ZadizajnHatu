@@ -11,7 +11,6 @@ namespace DataRepository.DbEntities.Users
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ClientId { get; set; }
-        public Guid UserId { get; set; }
         public List<Task> Tasks { get; set; }
 
         public User User { get; set; }
