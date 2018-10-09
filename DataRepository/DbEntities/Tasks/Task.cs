@@ -11,12 +11,10 @@ namespace DataRepository.DbEntities.Tasks
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid TaskId { get; set; }
-        public Guid ClientId { get; set; }
-        public int TaskStatusId { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
-        public Work Work { get; set; }
 
+        public Work Work { get; set; }
         public TaskStatus TaskStatus { get; set; }
         public Client Client { get; set; }
         // TODO: Photos

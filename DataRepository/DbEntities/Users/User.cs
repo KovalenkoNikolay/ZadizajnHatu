@@ -12,11 +12,6 @@ namespace DataRepository.DbEntities.Users
         public string LoginName { get; set; } //Email
         public string PhoneNumber { get; set; }
         public DateTime RegisteredDate { get; set; }
-        public Guid DesignerId { get; set; }
-        public Guid ClientId { get; set; }
-
-        public Designer Designer { get; set; }
-        public Client Client { get; set; }
     }
 }
 
