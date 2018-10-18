@@ -16,7 +16,7 @@ namespace DataRepository.DbEntities.Tasks
 
         public Work Work { get; set; }
         public TaskStatus TaskStatus { get; set; }
-        public Client Client { get; set; }
+        public AppUser User { get; set; }
         // TODO: Photos
     }
 }
