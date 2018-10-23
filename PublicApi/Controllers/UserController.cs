@@ -31,9 +31,21 @@ namespace PublicApi.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterClient([FromBody] User user)
         {
+            var isAuthorized = User.Identity.IsAuthenticated;
+
             var userToAdd = Mapper.Map<AppUser>(user);
 
-            var result = await _userManager.CreateAsync(userToAdd);
+            var result = await _userManager.CreateAsync(userToAdd, "!1Asdfasdfasdfasdf");
+
+            return Ok();
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login()
+        {
+            var result = await _signInManager.PasswordSignInAsync("email2@email.com", "!1Asdfasdfasdfasdf", true, false);
+
+            var isAuthorized = User.Identity.IsAuthenticated;
 
             return Ok();
         }

@@ -10,5 +10,8 @@ namespace Web.ApiContracts
     {
         [Post("api/user")]
         Task RegisterClientAsync([Body] Contracts.User user);
+
+        [Post("api/user/login")]
+        Task LoginAsync();
     }
 }

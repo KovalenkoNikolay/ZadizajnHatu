@@ -14,12 +14,17 @@ namespace Web.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            IUserApi api = RestClient.For<IUserApi>("http://localhost:51662");
+           IUserApi api = RestClient.For<IUserApi>("http://localhost:51662");
 
             await api.RegisterClientAsync(new Contracts.User {
-                Email = "asdfa",
-                FirstName = "First",
+                Email = "email2@email.com",
+                UserName = "email2@email.com",
+                FirstName = "FirstName",
             });
+
+            await api.LoginAsync();
+
+            var isAuthorized = User.Identity.IsAuthenticated;
 
             return View();
         }
