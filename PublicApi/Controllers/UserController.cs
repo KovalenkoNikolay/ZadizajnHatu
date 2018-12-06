@@ -44,7 +44,6 @@ namespace PublicApi.Controllers
         public async Task<IActionResult> Login()
         {
             var result = await _signInManager.PasswordSignInAsync("email2@email.com", "!1Asdfasdfasdfasdf", true, false);
-
             var isAuthorized = User.Identity.IsAuthenticated;
 
             return Ok();
