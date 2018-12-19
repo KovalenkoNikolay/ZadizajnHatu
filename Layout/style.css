@@ -1,34 +1,110 @@
-body {
+html, body {
     margin: 0;
+    height: 100%;
+}
+
+.font-color-gray{
+    color: gray;
+}
+
+@font-face {
+    font-family: 'San Francisco Text Light';
+    src: url('SFUIText-Light.eot');
+    src: url('SFUIText-Light.eot?#iefix') format('embedded-opentype'),
+    url('SFUIText-Light.woff') format('woff'),
+    url('SFUIText-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 #grid {
+    min-height: 100%;
     display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 250px 1fr;
     grid-template-areas: "header header"
                        "filter  main"
                        "footer footer"
 }
 
 
+#grid > header {
+    letter-spacing: 0.5px;
+    font-family: 'San Francisco Text Light';
+
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    height: 65px;
+}
+
+/*Header*/
+
+header > p {
+    margin: 0;
+    font-size: 21pt;
+}
+
+header > div{
+    text-align: right;
+    align-items: center;
+}
+
+header > div > input{
+    width: 100px;
+    margin-right: 10px;
+}
+
+#search{
+    padding-left: 5px;
+    width: 150px;
+    height: 26px;
+    margin-right: 10px;
+}
+
+#login{
+    letter-spacing: 0px;
+    font-size: 13pt;
+    text-decoration:none;
+}
+
+/*Filter*/
+
+#grid > filter {
+    
+}
+
+/*Main*/
+
+#grid > main {
+    background-color:gray;
+}
+
+/*Footer*/
+
+#grid > footer {
+    display: grid;            /* new */
+    align-items: center;   
+    background-color: green;
+    height: 50px;
+}
 
 
 /*Areas*/
 #grid > header {
     grid-area: header;
-    background-color: aqua;
 }
 
 #grid > filter {
     grid-area: filter;
-    background-color: black;
 }
 
 #grid > main {
     grid-area: main;
-    background-color:gray;
 }
 
 #grid > footer {
     grid-area: footer;
-    background-color: green;
 }
