@@ -1,6 +1,7 @@
 html, body {
     margin: 0;
     height: 100%;
+    font-family: 'San Francisco Text Light';
 }
 
 .font-color-gray{
@@ -17,11 +18,21 @@ html, body {
     font-style: normal;
 }
 
+@media (min-width: 640px) {
+    #grid {
+        grid-template-rows: auto 1fr auto;
+        grid-template-columns: 1fr;
+        grid-template-areas: "header"
+                           "main"
+                           "footer"
+    }        
+}
+
 #grid {
     min-height: 100%;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    grid-template-columns: 250px 1fr;
+    grid-template-columns: 230px 1fr;
     grid-template-areas: "header header"
                        "filter  main"
                        "footer footer"
@@ -30,14 +41,13 @@ html, body {
 
 #grid > header {
     letter-spacing: 0.5px;
-    font-family: 'San Francisco Text Light';
-
     padding-left: 10px;
     padding-right: 10px;
     align-items: center;
     display: grid;
     grid-template-columns: 300px 1fr;
     height: 65px;
+    /* border-bottom: 1px solid  #a7a7a7; */
 }
 
 /*Header*/
@@ -50,11 +60,6 @@ header > p {
 header > div{
     text-align: right;
     align-items: center;
-}
-
-header > div > input{
-    width: 100px;
-    margin-right: 10px;
 }
 
 #search{
@@ -73,21 +78,60 @@ header > div > input{
 /*Filter*/
 
 #grid > filter {
-    
+    text-align: center;
+    margin-top: 25px;
+    list-style-type: none;
+    text-transform: uppercase;
+}
+
+filter > li {
+    margin-bottom: 4px;
 }
 
 /*Main*/
 
 #grid > main {
-    background-color:gray;
+    display: grid;
+    grid-template-columns: 1fr 1fr
+}
+
+.design-studio {
+    /* background-color: rgb(238,238,238, 0.6); */
+    height: 400px;
+    text-align: center;
+    margin: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.design-studio > img {
+    max-width: 100%;
+}
+
+.studio-name {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    left: 0px;
+    bottom: 0px;
+    background-color: rgba(179, 179, 179, 0.7);
+    text-align: center;
+    font-size: 15pt;
+    color: rgb(245, 245, 245);
+    letter-spacing: 0.4px;
+}
+
+.studio-name > p {
+    margin: 0;
 }
 
 /*Footer*/
 
 #grid > footer {
+    border-top: 1px solid #a7a7a7;
     display: grid;            /* new */
     align-items: center;   
-    background-color: green;
     height: 50px;
 }
 
