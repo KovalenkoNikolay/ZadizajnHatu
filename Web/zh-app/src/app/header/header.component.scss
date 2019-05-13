@@ -1,0 +1,45 @@
+header {
+    letter-spacing: 0.5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    height: 65px;
+    /* border-bottom: 1px solid  #a7a7a7; */
+}
+
+#logo {
+    margin: 0;
+    font-size: 16pt;
+    margin: 15px;
+}
+
+header > div{
+    text-align: right;
+    align-items: center;
+}
+
+#search{
+    padding-left: 5px;
+    width: 150px;
+    height: 26px;
+    margin-right: 10px;
+}
+
+#login {
+    position: fixed;
+    right: 15px;
+    top: 15px;
+    background-color: rgba(243, 242, 242, 0.7);
+    height: 40px;
+    line-height: 40px;
+    width: 80px;
+    overflow: hidden;
+    text-align: center;
+}
+
+#login > a {
+    color: black;
+    text-decoration:none;
+}

@@ -53,7 +53,7 @@ namespace PublicApi.Controllers
         [HttpGet("")]
         public async Task<IActionResult> Get()
         {
-            return Ok(@"{""hello"":""Hello Marina""}");
+            return Ok(@"{""hello"":""Hello Marina!""}");
         }
     }
 }
