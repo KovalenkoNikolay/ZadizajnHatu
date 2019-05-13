@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PublicApi.Controllers
 {
+    //http://localhost:51662
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -47,6 +48,12 @@ namespace PublicApi.Controllers
             var isAuthorized = User.Identity.IsAuthenticated;
 
             return Ok();
+        }
+
+        [HttpGet("")]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(@"{""hello"":""Hello Marina!""}");
         }
     }
 }

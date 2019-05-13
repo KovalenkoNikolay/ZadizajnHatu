@@ -6,7 +6,7 @@ namespace DataRepository.DbEntities.Tasks
     {
         [Key]
         public int TaskStatusId { get; set; }
-
+        
         public string TaskStatusName { get; set; }
     }
 }
