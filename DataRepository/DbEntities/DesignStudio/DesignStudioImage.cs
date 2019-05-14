@@ -2,18 +2,18 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DataRepository.DbEntities
+namespace DataRepository.DbEntities.DesignStudio
 {
-    public class DesignStudio
+    public class DesignStudioImage
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        public string Name { get; set; }
+        public Guid Name { get; set; }
 
-        public string Cover { get; set; }
+        public Guid DesignStudioId { get; set; }
 
-        public Guid UserId { get; set; }
+        public Guid PortfolioId { get; set; }
     }
 }

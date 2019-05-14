@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLogic.Managers;
+using Contracts;
+using Microsoft.AspNetCore.Mvc;
+using PublicApi.Models.DesignStudio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +16,15 @@ namespace PublicApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetDesignStudios()
         {
-
+            
 
             return Ok();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Add(CreateDesignStudio designStudio)
         {
-
+            ImageManager.SaveImage(designStudio.Cover);
 
             return Ok();
         }

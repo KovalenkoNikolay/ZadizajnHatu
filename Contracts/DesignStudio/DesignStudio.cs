@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Contracts
+namespace Contracts.DesignStudio
 {
     public class DesignStudio
     {

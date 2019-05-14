@@ -5,6 +5,6 @@ namespace DataRepository.DbEntities.Users
 {
     public class AppUser : IdentityUser
     {
-        public List<DesignStudio> DesignStudios { get; set; }
+        public List<DesignStudio.DesignStudio> DesignStudios { get; set; }
     }
 }
