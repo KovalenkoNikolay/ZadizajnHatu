@@ -65,6 +65,8 @@ namespace PublicApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ZH Api V1");
             });
 
+            app.UseCors(builder =>
+       builder.WithOrigins("http://localhost:4200"));
             app.UseAuthentication();
 
             if (env.IsDevelopment())
