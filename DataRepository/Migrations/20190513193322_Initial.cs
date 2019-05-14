@@ -1,10 +1,10 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataRepository.Migrations
 {
-    public partial class _1 : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,13 +41,7 @@ namespace DataRepository.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    ContactInfo = table.Column<string>(nullable: true),
-                    CompanyName = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    UserType = table.Column<int>(nullable: true)
+                    Discriminator = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,37 +49,11 @@ namespace DataRepository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TaskStatus",
-                columns: table => new
-                {
-                    TaskStatusId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TaskStatusName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TaskStatus", x => x.TaskStatusId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WorkType",
-                columns: table => new
-                {
-                    WorkTypeId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    WorkTypeName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WorkType", x => x.WorkTypeId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -106,7 +74,7 @@ namespace DataRepository.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -187,64 +155,23 @@ namespace DataRepository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Works",
+                name: "DesignStudios",
                 columns: table => new
                 {
-                    WorkId = table.Column<Guid>(nullable: false),
-                    MinCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    MaxCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Currency = table.Column<string>(nullable: true),
-                    WorkTypeId = table.Column<int>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Cover = table.Column<string>(nullable: true),
+                    UserId = table.Column<Guid>(nullable: false),
+                    AppUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Works", x => x.WorkId);
+                    table.PrimaryKey("PK_DesignStudios", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Works_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_DesignStudios_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Works_WorkType_WorkTypeId",
-                        column: x => x.WorkTypeId,
-                        principalTable: "WorkType",
-                        principalColumn: "WorkTypeId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tasks",
-                columns: table => new
-                {
-                    TaskId = table.Column<Guid>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(nullable: false),
-                    WorkId = table.Column<Guid>(nullable: true),
-                    TaskStatusId = table.Column<int>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tasks", x => x.TaskId);
-                    table.ForeignKey(
-                        name: "FK_Tasks_TaskStatus_TaskStatusId",
-                        column: x => x.TaskStatusId,
-                        principalTable: "TaskStatus",
-                        principalColumn: "TaskStatusId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Tasks_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Tasks_Works_WorkId",
-                        column: x => x.WorkId,
-                        principalTable: "Works",
-                        principalColumn: "WorkId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -257,8 +184,7 @@ namespace DataRepository.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -284,33 +210,12 @@ namespace DataRepository.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tasks_TaskStatusId",
-                table: "Tasks",
-                column: "TaskStatusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tasks_UserId",
-                table: "Tasks",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tasks_WorkId",
-                table: "Tasks",
-                column: "WorkId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Works_UserId",
-                table: "Works",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Works_WorkTypeId",
-                table: "Works",
-                column: "WorkTypeId");
+                name: "IX_DesignStudios_AppUserId",
+                table: "DesignStudios",
+                column: "AppUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -331,22 +236,13 @@ namespace DataRepository.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Tasks");
+                name: "DesignStudios");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "TaskStatus");
-
-            migrationBuilder.DropTable(
-                name: "Works");
-
-            migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "WorkType");
         }
     }
 }

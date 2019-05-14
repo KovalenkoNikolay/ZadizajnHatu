@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using DataRepository.DbEntities.Users;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
