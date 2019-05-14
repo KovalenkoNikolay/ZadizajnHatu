@@ -1,10 +1,6 @@
 ﻿using BusinessLogic.Managers;
-using Contracts;
 using Microsoft.AspNetCore.Mvc;
 using PublicApi.Models.DesignStudio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PublicApi.Controllers

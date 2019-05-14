@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Contracts;
 using DataRepository.DbEntities.Users;
 
 namespace PublicApi
