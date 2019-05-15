@@ -34,15 +34,6 @@ namespace PublicApi
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            if (bool.Parse(Configuration.GetSection("UsePostgress").Value))
-            {
-                services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgressSQLConnectionString")));
-            }
-            else
-            {
-                services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MSSQLConnectionString"), b => b.UseRowNumberForPaging()));
-            }
-
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
@@ -65,8 +56,10 @@ namespace PublicApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ZH Api V1");
             });
 
-            app.UseCors(builder =>
-       builder.WithOrigins("http://localhost:4200"));
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "http://localhost:51662/")
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
             app.UseAuthentication();
 
             if (env.IsDevelopment())

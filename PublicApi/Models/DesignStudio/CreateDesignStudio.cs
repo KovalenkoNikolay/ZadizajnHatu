@@ -11,6 +11,6 @@ namespace PublicApi.Models.DesignStudio
 
         public Guid UserId { get; set; }
 
-        public IFormFile Cover { get; set; }
+        //public IFormFile Cover { get; set; }
     }
 }
