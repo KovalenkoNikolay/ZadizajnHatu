@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataRepository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190514163000_AddDesignStudioImages")]
-    partial class AddDesignStudioImages
+    [Migration("20190515075148_Initiate")]
+    partial class Initiate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,8 +32,6 @@ namespace DataRepository.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<Guid>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
@@ -46,17 +44,33 @@ namespace DataRepository.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("DesignStudioId");
-
-                    b.Property<Guid>("Name");
+                    b.Property<string>("Name");
 
                     b.Property<Guid>("PortfolioId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DesignStudioId");
+                    b.HasIndex("PortfolioId");
 
                     b.ToTable("DesignStudioImage");
+                });
+
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.Portfolio", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<Guid>("DesignStudioId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DesignStudioId");
+
+                    b.ToTable("Portfolio");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -241,8 +255,16 @@ namespace DataRepository.Migrations
 
             modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioImage", b =>
                 {
-                    b.HasOne("DataRepository.DbEntities.DesignStudio.DesignStudio")
+                    b.HasOne("DataRepository.DbEntities.DesignStudio.Portfolio")
                         .WithMany("Images")
+                        .HasForeignKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.Portfolio", b =>
+                {
+                    b.HasOne("DataRepository.DbEntities.DesignStudio.DesignStudio")
+                        .WithMany("Portfolios")
                         .HasForeignKey("DesignStudioId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

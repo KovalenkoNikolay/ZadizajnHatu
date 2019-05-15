@@ -16,6 +16,8 @@ namespace DataRepository.DbEntities.DesignStudio
 
         public string Description { get; set; }
 
+        public Guid DesignStudioId { get; set; }
+
         public List<DesignStudioImage> Images { get; set; }
     }
 }

@@ -15,8 +15,8 @@ namespace DataRepository.DbEntities.DesignStudio
 
         public string Cover { get; set; }
 
-        public Guid UserId { get; set; }
+        public string AppUserId { get; set; }
 
-        public List<DesignStudioImage> Images { get; set; }
+        public List<Portfolio> Portfolios { get; set; }
     }
 }

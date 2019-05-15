@@ -10,9 +10,7 @@ namespace DataRepository.DbEntities.DesignStudio
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        public Guid Name { get; set; }
-
-        public Guid DesignStudioId { get; set; }
+        public string Name { get; set; }
 
         public Guid PortfolioId { get; set; }
     }
