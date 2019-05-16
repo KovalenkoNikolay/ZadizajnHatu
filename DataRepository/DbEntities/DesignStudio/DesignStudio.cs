@@ -13,7 +13,7 @@ namespace DataRepository.DbEntities.DesignStudio
 
         public string Name { get; set; }
 
-        public string Cover { get; set; }
+        public string CoverName { get; set; }
 
         public string AppUserId { get; set; }
 

@@ -23,5 +23,11 @@ namespace BusinessLogic.Managers
 
             return imageName;
         }
+
+        public string GetImgFullPath(string imgName)
+        {
+            // TODO: Return link to S3
+            return $"C:\\Git\\Personal\\1\\Layout\\{imgName}.jpg";
+        }
     }
 }

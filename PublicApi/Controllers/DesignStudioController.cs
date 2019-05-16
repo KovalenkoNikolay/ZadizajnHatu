@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PublicApi.Models.DesignStudio;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PublicApi.Controllers
@@ -20,31 +22,30 @@ namespace PublicApi.Controllers
         ImageManager ImageManager => _imageManager.Value;
         AppDbContext DbContext => _appDbContext.Value;
 
-        public DesignStudioController(IConfiguration configuration)
+        public DesignStudioController(AppDbContext dbContext)
         {
             _imageManager = new Lazy<ImageManager>();
-            _appDbContext = new Lazy<AppDbContext>(() => new AppDbContext(configuration));
+            _appDbContext = new Lazy<AppDbContext>(() => dbContext);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDesignStudios()
+        public async Task<List<Models.DesignStudio.DesignStudio>> GetDesignStudios()
         {
-            
+            var ds = DbContext.DesignStudios.Take(5).ToList();
 
-            return Ok();
+            return Mapper.Map<List<Models.DesignStudio.DesignStudio>>(ds);
         }
 
         [HttpPost]
         public async Task<IActionResult> Add(CreateDesignStudio designStudio)
         {
             // TODO: Save image
-            //var coverName = ImageManager.SaveImageToStorage(designStudio.Cover);
-            var coverName = Guid.NewGuid().ToString();
+            var coverName = ImageManager.SaveImageToStorage(designStudio.Cover);
 
-            var designStudioToAdd = Mapper.Map<DesignStudio>(designStudio);
+            var designStudioToAdd = Mapper.Map<DataRepository.DbEntities.DesignStudio.DesignStudio>(designStudio);
 
             // TODO: Get CurrentUserId
-            designStudioToAdd.Cover = coverName;
+            designStudioToAdd.CoverName = coverName;
             designStudioToAdd.AppUserId = null;
             
             DbContext.Add(designStudioToAdd);

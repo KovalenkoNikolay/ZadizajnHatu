@@ -12,7 +12,8 @@ namespace PublicApi
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<User, AppUser>();
-                cfg.CreateMap<CreateDesignStudio, DesignStudio>();
+                cfg.CreateMap<CreateDesignStudio, DataRepository.DbEntities.DesignStudio.DesignStudio>();
+                cfg.CreateMap<DataRepository.DbEntities.DesignStudio.DesignStudio, Models.DesignStudio.DesignStudio>().ForMember(x=>x.CoverPath, opt=>opt.Ignore());
             });
         }
     }

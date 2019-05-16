@@ -32,6 +32,15 @@ namespace PublicApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            if (bool.Parse(Configuration.GetSection("UsePostgress").Value))
+            {
+                services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgressSQLConnectionString")));
+            }
+            else
+            {
+                services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MSSQLConnectionString")));
+            }
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddIdentity<AppUser, IdentityRole>()
