@@ -10,93 +10,67 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataRepository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20181014185847_1")]
-    partial class _1
+    [Migration("20190515075148_Initiate")]
+    partial class Initiate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DataRepository.DbEntities.Tasks.Task", b =>
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudio", b =>
                 {
-                    b.Property<Guid>("TaskId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<string>("AppUserId");
+
+                    b.Property<string>("Cover");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("DesignStudios");
+                });
+
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<Guid>("PortfolioId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId");
+
+                    b.ToTable("DesignStudioImage");
+                });
+
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.Portfolio", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("TaskStatusId");
+                    b.Property<Guid>("DesignStudioId");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("Name");
 
-                    b.Property<Guid?>("WorkId");
+                    b.HasKey("Id");
 
-                    b.HasKey("TaskId");
+                    b.HasIndex("DesignStudioId");
 
-                    b.HasIndex("TaskStatusId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("WorkId");
-
-                    b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("DataRepository.DbEntities.Tasks.TaskStatus", b =>
-                {
-                    b.Property<int>("TaskStatusId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TaskStatusName");
-
-                    b.HasKey("TaskStatusId");
-
-                    b.ToTable("TaskStatus");
-                });
-
-            modelBuilder.Entity("DataRepository.DbEntities.Works.Work", b =>
-                {
-                    b.Property<Guid>("WorkId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Currency");
-
-                    b.Property<decimal>("MaxCost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("MinCost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<int?>("WorkTypeId");
-
-                    b.HasKey("WorkId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("WorkTypeId");
-
-                    b.ToTable("Works");
-                });
-
-            modelBuilder.Entity("DataRepository.DbEntities.Works.WorkType", b =>
-                {
-                    b.Property<int>("WorkTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("WorkTypeName");
-
-                    b.HasKey("WorkTypeId");
-
-                    b.ToTable("WorkType");
+                    b.ToTable("Portfolio");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -269,47 +243,30 @@ namespace DataRepository.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("CompanyName");
-
-                    b.Property<string>("ContactInfo");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<int>("UserType");
-
-                    b.ToTable("AppUser");
-
                     b.HasDiscriminator().HasValue("AppUser");
                 });
 
-            modelBuilder.Entity("DataRepository.DbEntities.Tasks.Task", b =>
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudio", b =>
                 {
-                    b.HasOne("DataRepository.DbEntities.Tasks.TaskStatus", "TaskStatus")
-                        .WithMany()
-                        .HasForeignKey("TaskStatusId");
-
-                    b.HasOne("DataRepository.DbEntities.Users.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.HasOne("DataRepository.DbEntities.Works.Work", "Work")
-                        .WithMany()
-                        .HasForeignKey("WorkId");
+                    b.HasOne("DataRepository.DbEntities.Users.AppUser")
+                        .WithMany("DesignStudios")
+                        .HasForeignKey("AppUserId");
                 });
 
-            modelBuilder.Entity("DataRepository.DbEntities.Works.Work", b =>
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioImage", b =>
                 {
-                    b.HasOne("DataRepository.DbEntities.Users.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                    b.HasOne("DataRepository.DbEntities.DesignStudio.Portfolio")
+                        .WithMany("Images")
+                        .HasForeignKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
 
-                    b.HasOne("DataRepository.DbEntities.Works.WorkType", "WorkType")
-                        .WithMany()
-                        .HasForeignKey("WorkTypeId");
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.Portfolio", b =>
+                {
+                    b.HasOne("DataRepository.DbEntities.DesignStudio.DesignStudio")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("DesignStudioId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

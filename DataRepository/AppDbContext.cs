@@ -1,17 +1,36 @@
-﻿using DataRepository.DbEntities.Tasks;
+﻿using DataRepository.DbEntities.DesignStudio;
 using DataRepository.DbEntities.Users;
-using DataRepository.DbEntities.Works;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DataRepository
 {
     public class AppDbContext : IdentityDbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        private readonly IConfiguration _configuration;
 
-        public DbSet<AppUser> Designers { get; set; }
-        public DbSet<Task> Tasks { get; set; }
-        public DbSet<Work> Works { get; set; }
+        public AppDbContext(IConfiguration configuration) : base() {
+            _configuration = configuration;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                if (bool.Parse(_configuration.GetSection("UsePostgress").Value))
+                {
+                    optionsBuilder.UseNpgsql(_configuration.GetConnectionString("PostgressSQLConnectionString"));
+                }
+                else
+                {
+                    optionsBuilder.UseSqlServer(_configuration.GetConnectionString("MSSQLConnectionString"), b => b.UseRowNumberForPaging());
+                }
+            }
+        }
+
+        public DbSet<AppUser> AppUsers { get; set; }
+
+        public DbSet<DesignStudio> DesignStudios { get; set; }
     }
 }
