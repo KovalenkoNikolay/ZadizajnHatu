@@ -14,7 +14,7 @@ namespace PublicApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DesignStudioController : ControllerBase
+    public class DesignStudioController : Controller
     {
         readonly Lazy<ImageManager> _imageManager;
         readonly Lazy<AppDbContext> _appDbContext;
@@ -36,22 +36,38 @@ namespace PublicApi.Controllers
             return Mapper.Map<List<Models.DesignStudio.DesignStudio>>(ds);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(CreateDesignStudio designStudio)
-        {
-            // TODO: Save image
-            var coverName = ImageManager.SaveImageToStorage(designStudio.Cover);
+        //[HttpGet]
+        //public Models.DesignStudio.DesignStudio GetDesignStudios()
+        //{
+        //    var ds = DbContext.DesignStudios.Take(5).ToList();
 
-            var designStudioToAdd = Mapper.Map<DataRepository.DbEntities.DesignStudio.DesignStudio>(designStudio);
+        //    //return Mapper.Map<List<Models.DesignStudio.DesignStudio>>(ds)[0];
 
-            // TODO: Get CurrentUserId
-            designStudioToAdd.CoverName = coverName;
-            designStudioToAdd.AppUserId = null;
+        //    //return Ok(Mapper.Map<List<Models.DesignStudio.DesignStudio>>(ds)[0]);
+        //    return new Models.DesignStudio.DesignStudio() {
+        //        Name = "Hwllo!",
+        //        Id = Guid.NewGuid(),
+        //        AppUserId = "HelloAppUser",
+        //        CoverPath = "HelloCOverPath"
+        //    };
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> Add(CreateDesignStudio designStudio)
+        //{
+        //    // TODO: Save image
+        //    var coverName = ImageManager.SaveImageToStorage(designStudio.Cover);
+
+        //    var designStudioToAdd = Mapper.Map<DataRepository.DbEntities.DesignStudio.DesignStudio>(designStudio);
+
+        //    // TODO: Get CurrentUserId
+        //    designStudioToAdd.CoverName = coverName;
+        //    designStudioToAdd.AppUserId = null;
             
-            DbContext.Add(designStudioToAdd);
-            DbContext.SaveChanges();
+        //    DbContext.Add(designStudioToAdd);
+        //    DbContext.SaveChanges();
             
-            return Ok();
-        }
+        //    return Ok();
+        //}
     }
 }

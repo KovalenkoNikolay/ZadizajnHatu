@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { DesignStudio } from 'src/app/shared/models/designstudio';
 
 @Component({
   selector: '[id=design-studio-preview]',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DesignStudioPreviewComponent implements OnInit {
 
-  constructor() { }
+//@Input() designStudio : DesignStudio;
+  @Input() parentData : string;
+
+  constructor() { 
+    
+  }
 
   ngOnInit() {
   }

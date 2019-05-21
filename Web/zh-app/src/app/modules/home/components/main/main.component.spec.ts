@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DesignStudioPreviewComponent } from './design-studio-preview/design-studio-preview.component';
+import { DesignStudioPreviewComponent } from '../design-studio-preview/design-studio-preview.component';
 
 import { MainComponent } from './main.component';
 
