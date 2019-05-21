@@ -10,7 +10,6 @@ import { DesignstudioService } from 'src/app/core/services/designstudio.service'
 export class MainComponent implements OnInit {
 
   public designStudios : DesignStudio[]=[];
-  public str="hello!";
 
   constructor(private _designstudioService: DesignstudioService) { 
   }
