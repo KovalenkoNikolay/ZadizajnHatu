@@ -31,9 +31,11 @@ namespace PublicApi.Controllers
         [HttpGet]
         public async Task<List<Models.DesignStudio.DesignStudio>> GetDesignStudios()
         {
-            var ds = DbContext.DesignStudios.Take(5).ToList();
+            var designStudios = DbContext.DesignStudios.Take(5).ToList();
 
-            return Mapper.Map<List<Models.DesignStudio.DesignStudio>>(ds);
+            var targetDesignStudios = Mapper.Map<List<Models.DesignStudio.DesignStudio>>(designStudios);
+            
+            return targetDesignStudios;
         }
 
         //[HttpGet]

@@ -8,8 +8,7 @@ import { DesignStudio } from 'src/app/shared/models/designstudio';
 })
 export class DesignStudioPreviewComponent implements OnInit {
 
-//@Input() designStudio : DesignStudio;
-  @Input() parentData : string;
+  @Input() designStudio : DesignStudio;
 
   constructor() { 
     
