@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace DataRepository.DbEntities.DesignStudio
 {
-    public class Portfolio
+    public class DesignStudioPrice
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,10 +12,14 @@ namespace DataRepository.DbEntities.DesignStudio
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public decimal MinPrice { get; set; }
 
         public Guid DesignStudioId { get; set; }
 
-        public List<DesignStudioImage> Images { get; set; }
+        public Guid PriceTypeId { get; set; }
+
+        public DesignStudioPriceType PriceType { get; set; }
+
+        public DesignStudio DesignStudio { get; set; }
     }
 }

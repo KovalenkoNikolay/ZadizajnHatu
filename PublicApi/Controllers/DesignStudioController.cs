@@ -31,6 +31,8 @@ namespace PublicApi.Controllers
         [HttpGet]
         public async Task<List<Models.DesignStudio.DesignStudio>> GetDesignStudios()
         {
+            var guid = Guid.NewGuid();
+
             var designStudios = DbContext.DesignStudios.Take(5).ToList();
 
             var targetDesignStudios = Mapper.Map<List<Models.DesignStudio.DesignStudio>>(designStudios);

@@ -17,5 +17,11 @@ namespace DataRepository
         public DbSet<AppUser> AppUsers { get; set; }
 
         public DbSet<DesignStudio> DesignStudios { get; set; }
+
+        public DbSet<DesignStudioPortfolio> DesignStudioPortfolio { get; set; }
+
+        public DbSet<DesignStudioPrice> DesignStudioPrice { get; set; }
+
+        public DbSet<DesignStudioPriceType> DesignStudioPriceType { get; set; }
     }
 }

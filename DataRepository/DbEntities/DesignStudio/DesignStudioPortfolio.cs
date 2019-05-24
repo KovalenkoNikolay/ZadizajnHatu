@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataRepository.DbEntities.DesignStudio
 {
-    public class DesignStudio
+    public class DesignStudioPortfolio
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -13,12 +13,10 @@ namespace DataRepository.DbEntities.DesignStudio
 
         public string Name { get; set; }
 
-        public string CoverName { get; set; }
+        public string Description { get; set; }
 
-        public string AppUserId { get; set; }
+        public Guid DesignStudioId { get; set; }
 
-        public List<DesignStudioPortfolio> Portfolios { get; set; }
-
-        public List<DesignStudioPrice> Prices { get; set; }
+        public List<DesignStudioImage> Images { get; set; }
     }
 }
