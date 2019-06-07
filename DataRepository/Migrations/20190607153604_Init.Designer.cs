@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataRepository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190523121058_DesignStudioPrices")]
-    partial class DesignStudioPrices
+    [Migration("20190607153604_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,11 +44,9 @@ namespace DataRepository.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("DesignStudioPortfolioId");
+                    b.Property<Guid>("DesignStudioPortfolioId");
 
                     b.Property<string>("Name");
-
-                    b.Property<Guid>("PortfolioId");
 
                     b.HasKey("Id");
 
@@ -84,9 +82,7 @@ namespace DataRepository.Migrations
 
                     b.Property<decimal>("MinPrice");
 
-                    b.Property<string>("Name");
-
-                    b.Property<Guid>("PriceTypeId");
+                    b.Property<int>("PriceTypeId");
 
                     b.HasKey("Id");
 
@@ -99,7 +95,7 @@ namespace DataRepository.Migrations
 
             modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioPriceType", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -289,7 +285,8 @@ namespace DataRepository.Migrations
                 {
                     b.HasOne("DataRepository.DbEntities.DesignStudio.DesignStudioPortfolio")
                         .WithMany("Images")
-                        .HasForeignKey("DesignStudioPortfolioId");
+                        .HasForeignKey("DesignStudioPortfolioId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioPortfolio", b =>

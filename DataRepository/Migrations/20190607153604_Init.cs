@@ -49,6 +49,19 @@ namespace DataRepository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DesignStudioPriceType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DesignStudioPriceType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -175,7 +188,7 @@ namespace DataRepository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Portfolio",
+                name: "DesignStudioPortfolio",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -185,11 +198,37 @@ namespace DataRepository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Portfolio", x => x.Id);
+                    table.PrimaryKey("PK_DesignStudioPortfolio", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Portfolio_DesignStudios_DesignStudioId",
+                        name: "FK_DesignStudioPortfolio_DesignStudios_DesignStudioId",
                         column: x => x.DesignStudioId,
                         principalTable: "DesignStudios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DesignStudioPrice",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    MinPrice = table.Column<decimal>(nullable: false),
+                    PriceTypeId = table.Column<int>(nullable: false),
+                    DesignStudioId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DesignStudioPrice", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DesignStudioPrice_DesignStudios_DesignStudioId",
+                        column: x => x.DesignStudioId,
+                        principalTable: "DesignStudios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DesignStudioPrice_DesignStudioPriceType_PriceTypeId",
+                        column: x => x.PriceTypeId,
+                        principalTable: "DesignStudioPriceType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -200,15 +239,15 @@ namespace DataRepository.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    PortfolioId = table.Column<Guid>(nullable: false)
+                    DesignStudioPortfolioId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DesignStudioImage", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DesignStudioImage_Portfolio_PortfolioId",
-                        column: x => x.PortfolioId,
-                        principalTable: "Portfolio",
+                        name: "FK_DesignStudioImage_DesignStudioPortfolio_DesignStudioPortfol~",
+                        column: x => x.DesignStudioPortfolioId,
+                        principalTable: "DesignStudioPortfolio",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -251,19 +290,29 @@ namespace DataRepository.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_DesignStudioImage_PortfolioId",
+                name: "IX_DesignStudioImage_DesignStudioPortfolioId",
                 table: "DesignStudioImage",
-                column: "PortfolioId");
+                column: "DesignStudioPortfolioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignStudioPortfolio_DesignStudioId",
+                table: "DesignStudioPortfolio",
+                column: "DesignStudioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignStudioPrice_DesignStudioId",
+                table: "DesignStudioPrice",
+                column: "DesignStudioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignStudioPrice_PriceTypeId",
+                table: "DesignStudioPrice",
+                column: "PriceTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DesignStudios_AppUserId",
                 table: "DesignStudios",
                 column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Portfolio_DesignStudioId",
-                table: "Portfolio",
-                column: "DesignStudioId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -287,10 +336,16 @@ namespace DataRepository.Migrations
                 name: "DesignStudioImage");
 
             migrationBuilder.DropTable(
+                name: "DesignStudioPrice");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Portfolio");
+                name: "DesignStudioPortfolio");
+
+            migrationBuilder.DropTable(
+                name: "DesignStudioPriceType");
 
             migrationBuilder.DropTable(
                 name: "DesignStudios");

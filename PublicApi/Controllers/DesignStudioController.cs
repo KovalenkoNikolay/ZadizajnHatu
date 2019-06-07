@@ -3,12 +3,14 @@ using BusinessLogic.Managers;
 using DataRepository;
 using DataRepository.DbEntities.DesignStudio;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PublicApi.Models.DesignStudio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DesignStudio = PublicApi.Models.DesignStudio.DesignStudio;
 
 namespace PublicApi.Controllers
 {
@@ -29,15 +31,28 @@ namespace PublicApi.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Models.DesignStudio.DesignStudio>> GetDesignStudios()
+        public async Task<List<DesignStudioPreview>> GetDesignStudios()
         {
-            var guid = Guid.NewGuid();
+            var designStudios = DbContext.DesignStudios.Include(ds => ds.Prices).Take(5).ToList();
 
-            var designStudios = DbContext.DesignStudios.Take(5).ToList();
-
-            var targetDesignStudios = Mapper.Map<List<Models.DesignStudio.DesignStudio>>(designStudios);
+            var targetDesignStudios = Mapper.Map<List<DesignStudioPreview>>(designStudios);
             
             return targetDesignStudios;
+        }
+
+        [HttpGet]
+        [Route("{studioId}")]
+        public async Task<DesignStudio> GetDesignStudioById(Guid studioId)
+        {
+            var designStudio = DbContext.DesignStudios
+                .Include(ds => ds.Prices)
+                .Include(ds => ds.Portfolios)
+                    .ThenInclude(p => p.Images)
+                .FirstOrDefault(ds=>ds.Id == studioId);
+
+            var targetDesignStudio = Mapper.Map<DesignStudio>(designStudio);
+
+            return targetDesignStudio;
         }
 
         //[HttpGet]
@@ -67,10 +82,10 @@ namespace PublicApi.Controllers
         //    // TODO: Get CurrentUserId
         //    designStudioToAdd.CoverName = coverName;
         //    designStudioToAdd.AppUserId = null;
-            
+
         //    DbContext.Add(designStudioToAdd);
         //    DbContext.SaveChanges();
-            
+
         //    return Ok();
         //}
     }

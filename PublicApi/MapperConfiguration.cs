@@ -14,7 +14,16 @@ namespace PublicApi
             {
                 cfg.CreateMap<User, AppUser>();
                 cfg.CreateMap<CreateDesignStudio, DataRepository.DbEntities.DesignStudio.DesignStudio>();
-                cfg.CreateMap<DataRepository.DbEntities.DesignStudio.DesignStudio, Models.DesignStudio.DesignStudio>().ForMember(x=>x.CoverPath, opt=> opt.MapFrom(src=> ImageManager.GetImgFullPath(src.CoverName)));
+                cfg.CreateMap<DataRepository.DbEntities.DesignStudio.DesignStudio, DesignStudioPreview>()
+                    .ForMember(x => x.CoverPath, opt => opt.MapFrom(src => ImageManager.GetImgFullPath(src.CoverName)));
+                cfg.CreateMap<DesignStudioPrice, Price>()
+                    .ForMember(x => x.Min, opt => opt.MapFrom(src => src.MinPrice))
+                    .ForMember(x => x.PriceTypeId, opt => opt.MapFrom(src => src.PriceTypeId));
+                cfg.CreateMap<DataRepository.DbEntities.DesignStudio.DesignStudio, Models.DesignStudio.DesignStudio>()
+                    .ForMember(x => x.CoverPath, opt => opt.MapFrom(src => ImageManager.GetImgFullPath(src.CoverName)));
+                cfg.CreateMap<DataRepository.DbEntities.DesignStudio.DesignStudioPortfolio, Models.DesignStudio.DesignStudioPortfolio>();
+                cfg.CreateMap<DesignStudioImage, Image>()
+                    .ForMember(x => x.FullPath, opt => opt.MapFrom(src => ImageManager.GetImgFullPath(src.FileName)));
             });
         }
     }

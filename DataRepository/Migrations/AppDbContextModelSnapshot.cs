@@ -42,11 +42,11 @@ namespace DataRepository.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("DesignStudioPortfolioId");
+                    b.Property<Guid>("DesignStudioPortfolioId");
+
+                    b.Property<string>("FileName");
 
                     b.Property<string>("Name");
-
-                    b.Property<Guid>("PortfolioId");
 
                     b.HasKey("Id");
 
@@ -82,9 +82,7 @@ namespace DataRepository.Migrations
 
                     b.Property<decimal>("MinPrice");
 
-                    b.Property<string>("Name");
-
-                    b.Property<Guid>("PriceTypeId");
+                    b.Property<int>("PriceTypeId");
 
                     b.HasKey("Id");
 
@@ -97,7 +95,7 @@ namespace DataRepository.Migrations
 
             modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioPriceType", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -287,7 +285,8 @@ namespace DataRepository.Migrations
                 {
                     b.HasOne("DataRepository.DbEntities.DesignStudio.DesignStudioPortfolio")
                         .WithMany("Images")
-                        .HasForeignKey("DesignStudioPortfolioId");
+                        .HasForeignKey("DesignStudioPortfolioId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioPortfolio", b =>

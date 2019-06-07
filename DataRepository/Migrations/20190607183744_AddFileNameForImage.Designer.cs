@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataRepository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190523090709_Init")]
-    partial class Init
+    [Migration("20190607183744_AddFileNameForImage")]
+    partial class AddFileNameForImage
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,18 +44,20 @@ namespace DataRepository.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<Guid>("DesignStudioPortfolioId");
 
-                    b.Property<Guid>("PortfolioId");
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PortfolioId");
+                    b.HasIndex("DesignStudioPortfolioId");
 
                     b.ToTable("DesignStudioImage");
                 });
 
-            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.Portfolio", b =>
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioPortfolio", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -70,7 +72,39 @@ namespace DataRepository.Migrations
 
                     b.HasIndex("DesignStudioId");
 
-                    b.ToTable("Portfolio");
+                    b.ToTable("DesignStudioPortfolio");
+                });
+
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioPrice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("DesignStudioId");
+
+                    b.Property<decimal>("MinPrice");
+
+                    b.Property<int>("PriceTypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DesignStudioId");
+
+                    b.HasIndex("PriceTypeId");
+
+                    b.ToTable("DesignStudioPrice");
+                });
+
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioPriceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DesignStudioPriceType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -251,17 +285,30 @@ namespace DataRepository.Migrations
 
             modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioImage", b =>
                 {
-                    b.HasOne("DataRepository.DbEntities.DesignStudio.Portfolio")
+                    b.HasOne("DataRepository.DbEntities.DesignStudio.DesignStudioPortfolio")
                         .WithMany("Images")
-                        .HasForeignKey("PortfolioId")
+                        .HasForeignKey("DesignStudioPortfolioId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.Portfolio", b =>
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioPortfolio", b =>
                 {
                     b.HasOne("DataRepository.DbEntities.DesignStudio.DesignStudio")
                         .WithMany("Portfolios")
                         .HasForeignKey("DesignStudioId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DataRepository.DbEntities.DesignStudio.DesignStudioPrice", b =>
+                {
+                    b.HasOne("DataRepository.DbEntities.DesignStudio.DesignStudio", "DesignStudio")
+                        .WithMany("Prices")
+                        .HasForeignKey("DesignStudioId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DataRepository.DbEntities.DesignStudio.DesignStudioPriceType", "PriceType")
+                        .WithMany("Prices")
+                        .HasForeignKey("PriceTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
