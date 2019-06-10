@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DesignStudio = PublicApi.Models.DesignStudio.DesignStudio;
+using DesignStudioPortfolio = PublicApi.Models.DesignStudio.DesignStudioPortfolio;
 
 namespace PublicApi.Controllers
 {
@@ -31,13 +32,27 @@ namespace PublicApi.Controllers
         }
 
         [HttpGet]
-        public async Task<List<DesignStudioPreview>> GetDesignStudios()
+        public async Task<List<DesignStudio>> GetDesignStudios()
         {
             var designStudios = DbContext.DesignStudios.Include(ds => ds.Prices).Take(5).ToList();
 
-            var targetDesignStudios = Mapper.Map<List<DesignStudioPreview>>(designStudios);
+            var targetDesignStudios = Mapper.Map<List<DesignStudio>>(designStudios);
             
             return targetDesignStudios;
+        }
+
+        [HttpGet]
+        [Route("{studioId}/portfolios")]
+        public async Task<List<DesignStudioPortfolio>> GetPortfoliosForDesignStudio(Guid studioId)
+        {
+            var designStudio = DbContext.DesignStudioPortfolio
+                    .Include(ds => ds.Images)
+                    .Where(ds=>ds.DesignStudioId == studioId)
+                    .ToList();
+
+            var targetDesignStudio = Mapper.Map<List<DesignStudioPortfolio>>(designStudio);
+
+            return targetDesignStudio;
         }
 
         [HttpGet]
@@ -46,14 +61,14 @@ namespace PublicApi.Controllers
         {
             var designStudio = DbContext.DesignStudios
                 .Include(ds => ds.Prices)
-                .Include(ds => ds.Portfolios)
-                    .ThenInclude(p => p.Images)
-                .FirstOrDefault(ds=>ds.Id == studioId);
+                .FirstOrDefault(ds => ds.Id == studioId);
 
             var targetDesignStudio = Mapper.Map<DesignStudio>(designStudio);
 
             return targetDesignStudio;
         }
+
+
 
         //[HttpGet]
         //public Models.DesignStudio.DesignStudio GetDesignStudios()
