@@ -3,7 +3,6 @@ import { DesignStudio } from 'src/app/shared/models/designstudio';
 import { DesignstudioService } from 'src/app/core/services/designstudio.service';
 
 @Component({
-  selector: '[id=main]',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
