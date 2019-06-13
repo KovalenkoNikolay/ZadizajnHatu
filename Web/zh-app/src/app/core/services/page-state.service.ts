@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
+
 export class PageStateService {
+
+public currentPage : string;
 
   constructor() { }
 
   getCurrentPageName() : string {
-    return "filter"
+    return this.currentPage;
   }
+
+  setCurrentPageName(pageName : string) {
+    this.currentPage = pageName;
+  }
+
 }

@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { DesignStudioFilterComponent } from './modules/home/components/design-studio-filter/design-studio-filter.component';
 import { DesignStudioDetailsComponent } from './modules/home/components/design-studio-details/design-studio-details.component';
 
+import  { PageStateService } from './core/services/page-state.service';
+import { DesignStudioComponent } from './modules/home/components/design-studio/design-studio.component';
+
  
 
 
@@ -24,14 +27,15 @@ import { DesignStudioDetailsComponent } from './modules/home/components/design-s
     DesignStudioPreviewComponent,
     routingComponents,
     DesignStudioFilterComponent,
-    DesignStudioDetailsComponent
+    DesignStudioDetailsComponent,
+    DesignStudioComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [PageStateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

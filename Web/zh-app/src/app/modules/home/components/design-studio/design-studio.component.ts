@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageStateService } from '../../../../core/services/page-state.service';
 
 @Component({
   selector: 'app-design-studio',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DesignStudioComponent implements OnInit {
 
-  constructor() { }
+  constructor(public pageStateService : PageStateService) { }
 
   ngOnInit() {
+    this.pageStateService.setCurrentPageName("designstudio");
   }
 
 }
