@@ -4,3 +4,7 @@
 <li>Деньги</li>
 <li>Город</li>
 </div>
+<div [ngSwitch]="GetPageState()">
+    <div *ngSwitchCase="'filter'">Hello filter</div>
+    <div *ngSwitchCase="'details'">Hello details</div>
+</div>
