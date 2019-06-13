@@ -8,6 +8,8 @@ import { HeaderComponent } from './core/header/header.component';
 import { LeftbarComponent } from './core/leftbar/leftbar.component';
 import { MainComponent } from './modules/home/components/main/main.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DesignStudioFilterComponent } from './modules/home/components/design-studio-filter/design-studio-filter.component';
+import { DesignStudioDetailsComponent } from './modules/home/components/design-studio-details/design-studio-details.component';
 
  
 
@@ -20,7 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
     LeftbarComponent,
     MainComponent,
     DesignStudioPreviewComponent,
-    routingComponents
+    routingComponents,
+    DesignStudioFilterComponent,
+    DesignStudioDetailsComponent
   ],
   imports: [
     HttpClientModule,
