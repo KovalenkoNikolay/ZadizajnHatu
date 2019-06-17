@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._designstudioService.getDesignStudio().subscribe(data => 
+    this._designstudioService.getDesignStudios().subscribe(data => 
       {
         this.designStudios = data;
       } , error => console.error(error));
