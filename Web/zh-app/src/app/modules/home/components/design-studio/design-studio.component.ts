@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageStateService } from '../../../../core/services/page-state.service';
+import { DesignstudioService } from '../../../../core/services/designstudio.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-design-studio',
@@ -8,10 +10,12 @@ import { PageStateService } from '../../../../core/services/page-state.service';
 })
 export class DesignStudioComponent implements OnInit {
 
-  constructor(public pageStateService : PageStateService) { }
+  constructor(public pageStateService : PageStateService, public designstudioService : DesignstudioService, private route : ActivatedRoute) { }
 
   ngOnInit() {
-    this.pageStateService.setCurrentPageName("designstudio");
-  }
+    let designStudioId = this.route.snapshot.paramMap.get('id');
 
+    this.pageStateService.setCurrentPageName("designstudio");
+    var designStudio = this.designstudioService.getDesignStudioById(designStudioId);
+  }
 }

@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DesignStudioDetailsComponent implements OnInit {
 
+  public dsid;
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

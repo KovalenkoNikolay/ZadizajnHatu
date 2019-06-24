@@ -4,8 +4,8 @@ import { DesignStudioComponent } from './modules/home/components/design-studio/d
 import { MainComponent } from './modules/home/components/main/main.component';
 
 const routes: Routes = [
-  {path: "designstudio", component: DesignStudioComponent },
-  {path: "design", component: MainComponent },
+  {path: "designstudios/:id", component: DesignStudioComponent },
+  {path: "designstudios", component: MainComponent },
 ];
 
 @NgModule({

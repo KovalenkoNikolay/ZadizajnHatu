@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DesignStudio } from 'src/app/shared/models/designstudio';
+import { Router } from '@angular/router';
 
 @Component({
   selector: '[id=design-studio-preview]',
@@ -10,11 +11,14 @@ export class DesignStudioPreviewComponent implements OnInit {
 
   @Input() designStudio : DesignStudio;
 
-  constructor() { 
+  constructor(private router : Router) { 
     
   }
 
   ngOnInit() {
   }
-
+ 
+  onSelect(id){
+    this.router.navigate(['/designstudios', id]);
+  }
 }

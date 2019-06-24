@@ -1,8 +1,6 @@
-<a routerLink="/designstudio">
-    <div class="design-studio">
-      <img src="{{designStudio.coverPath}}">
-      <div class="studio-name">
-        <p>{{designStudio.name}} Цена от {{designStudio.prices[0].min}}</p>
-      </div>
-    </div>
-  </a>
+<div class="design-studio">
+  <img (click)="onSelect(designStudio.id)" src="{{designStudio.coverPath}}">
+  <div class="studio-name">
+    <p>{{designStudio.name}} Цена от {{designStudio.prices[0].min}}</p>
+  </div>
+</div>
