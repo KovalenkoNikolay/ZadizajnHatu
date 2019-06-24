@@ -10,12 +10,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DesignStudioComponent implements OnInit {
 
-  constructor(public pageStateService : PageStateService, public designstudioService : DesignstudioService, private route : ActivatedRoute) { }
+  private designStudio : DesignStudioDetails;
+  constructor(public pageStateService : PageStateService, public designstudioService : DesignstudioService, private route : ActivatedRoute) { 
+    this.pageStateService.setCurrentPageName("designstudio");
+  }
 
   ngOnInit() {
-    let designStudioId = this.route.snapshot.paramMap.get('id');
+    
 
-    this.pageStateService.setCurrentPageName("designstudio");
-    var designStudio = this.designstudioService.getDesignStudioById(designStudioId);
+    this.designstudioService.getDesignStudioById(this.route.snapshot.paramMap.get('id')).subscribe(data => 
+      {
+        this.designStudio = data;
+      } , error => console.error(error));;
   }
 }

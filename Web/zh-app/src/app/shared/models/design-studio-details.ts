@@ -1,4 +1,4 @@
-export class DesignStudio {
+class DesignStudioDetails {
     name: string;
     id: string;
     coverPath: string;
