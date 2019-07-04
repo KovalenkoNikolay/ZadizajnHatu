@@ -12,9 +12,8 @@ import { DesignStudioFilterComponent } from './modules/home/components/design-st
 import { DesignStudioDetailsComponent } from './modules/home/components/design-studio-details/design-studio-details.component';
 
 import  { PageStateService } from './core/services/page-state.service';
+import  { DesignStudioSharedDataService } from './core/services/design-studio-shared-data.service';
 import { DesignStudioComponent } from './modules/home/components/design-studio/design-studio.component';
-
- 
 
 
 @NgModule({
@@ -35,7 +34,7 @@ import { DesignStudioComponent } from './modules/home/components/design-studio/d
     BrowserModule,
     AppRoutingModule,
   ],
-  providers: [PageStateService],
+  providers: [PageStateService, DesignStudioSharedDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

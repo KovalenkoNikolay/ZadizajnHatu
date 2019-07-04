@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageStateService } from '../../../../core/services/page-state.service';
 import { DesignstudioService } from '../../../../core/services/designstudio.service';
 import { ActivatedRoute } from '@angular/router';
+import { DesignStudioSharedDataService } from 'src/app/core/services/design-studio-shared-data.service';
 
 @Component({
   selector: 'app-design-studio',
@@ -10,17 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DesignStudioComponent implements OnInit {
 
-  private designStudio : DesignStudioDetails;
-  constructor(public pageStateService : PageStateService, public designstudioService : DesignstudioService, private route : ActivatedRoute) { 
+  constructor(public pageStateService : PageStateService, public designstudioService : DesignstudioService, private route : ActivatedRoute, private dsSharedService : DesignStudioSharedDataService) { 
     this.pageStateService.setCurrentPageName("designstudio");
   }
 
   ngOnInit() {
-    
+    let currentDsId = this.route.snapshot.paramMap.get('id')
+    this.dsSharedService.setCurrentDsId(currentDsId);
 
-    this.designstudioService.getDesignStudioById(this.route.snapshot.paramMap.get('id')).subscribe(data => 
+    if (currentDsId != null)
       {
-        this.designStudio = data;
-      } , error => console.error(error));;
+        // DOTO: get portfolio
+      }
   }
 }
