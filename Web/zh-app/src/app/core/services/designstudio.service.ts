@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DesignStudio } from '../../shared/models/designstudio';
 import { Observable } from 'rxjs';
+import { DesignStudioPortfolio } from 'src/app/shared/models/design-studio-portfolio';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,9 @@ export class DesignstudioService {
 
   getDesignStudioById(id : string): Observable<DesignStudio> {
     return this.http.get<DesignStudio>(this._url + id);
+  }
+
+  getPortfoliosByDesignStudioId(id : string): Observable<DesignStudioPortfolio[]> {
+    return this.http.get<DesignStudioPortfolio[]>(this._url + id + "/portfolios");
   }
 }

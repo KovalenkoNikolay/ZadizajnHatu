@@ -1,6 +1,6 @@
 export class DesignStudioPortfolio {
-    name: string;
     id: string;
+    name: string;
     description: string;
     designStudioId: string;
     customImages: CustomImage[];
