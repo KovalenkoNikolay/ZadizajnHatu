@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-design-studio-filter',
+  selector: '[id=design-studio-filter]',
   templateUrl: './design-studio-filter.component.html',
   styleUrls: ['./design-studio-filter.component.scss']
 })

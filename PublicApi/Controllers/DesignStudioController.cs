@@ -32,9 +32,23 @@ namespace PublicApi.Controllers
         }
 
         [HttpGet]
-        public async Task<List<DesignStudio>> GetDesignStudios()
+        public async Task<List<DesignStudio>> GetDesignStudios([FromQuery] DesignStudioSearchFilter searchFilter)
         {
-            var designStudios = DbContext.DesignStudios.Include(ds => ds.Prices).Take(5).ToList();
+            var designStudiosQuery = DbContext.DesignStudios.Include(ds => ds.Prices).AsQueryable();
+            if (searchFilter.FromAmount.HasValue)
+            {
+                designStudiosQuery = designStudiosQuery.Where(ds => ds.Prices.Any(p=>p.MinPrice > searchFilter.FromAmount));
+            }
+            if (searchFilter.ToAmount.HasValue)
+            {
+                designStudiosQuery = designStudiosQuery.Where(ds => ds.Prices.Any(p => p.MinPrice < searchFilter.ToAmount));
+            }
+            if (searchFilter.Name != null)
+            {
+                designStudiosQuery = designStudiosQuery.Where(ds => ds.Name == searchFilter.Name);
+            }
+
+            var designStudios = designStudiosQuery.Take(5).ToList();
 
             var targetDesignStudios = Mapper.Map<List<DesignStudio>>(designStudios);
             
