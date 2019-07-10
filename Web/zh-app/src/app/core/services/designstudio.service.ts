@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { DesignStudio } from '../../shared/models/designstudio';
 import { Observable } from 'rxjs';
 import { DesignStudioPortfolio } from 'src/app/shared/models/design-studio-portfolio';
@@ -15,8 +15,18 @@ export class DesignstudioService {
 
   constructor(private http: HttpClient) { }
 
-  getDesignStudios(): Observable<DesignStudio[]> {
-    return this.http.get<DesignStudio[]>(this._url)
+  getDesignStudios(fromAmount : number, toAmount : number, name : string): Observable<DesignStudio[]> {
+    let params = new HttpParams();
+    if (fromAmount != null){
+      params = params.set("fromAmount", String(fromAmount))
+    }
+    if (toAmount != null){
+      params = params.set("toAmount", String(toAmount))
+    }
+    if (name != null){
+      params = params.set("name", name)
+    }
+    return this.http.get<DesignStudio[]>(this._url, {params : params})
   }
 
   getDesignStudioById(id : string): Observable<DesignStudio> {
