@@ -19,8 +19,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
      this.designStudioSharedDataService.getDesignStudioSearchFilter().subscribe(dsSearchFilter => {
-         let searchFilter : DesignStudioSearchFilter = dsSearchFilter || new DesignStudioSearchFilter();
-         searchFilter.name = "hello"
+         let searchFilter = dsSearchFilter || new DesignStudioSearchFilter();
 
          this._designstudioService.getDesignStudios(searchFilter.fromAmount, searchFilter.toAmount, searchFilter.name).subscribe(data => 
           {

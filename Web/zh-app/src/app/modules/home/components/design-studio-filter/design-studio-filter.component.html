@@ -1,3 +1,7 @@
 <p>
-  design-studio-filter works!
+  Цена от:
 </p>
+<input #fromAmount type="text">
+<input #toAmount type="text">
+<input #name type="text">
+<button (click)="searchDesignStudios(fromAmount.value, toAmount.value, name.value)">Пошук</button>
