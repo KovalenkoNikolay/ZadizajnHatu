@@ -1,15 +1,26 @@
 .design-studio {
-    /* background-color: rgb(238,238,238, 0.6); */
     max-height: 450px;
     text-align: center;
     margin: 15px 10px 0 10px;
     overflow: hidden;
     position: relative;
+    border-bottom: 1px solid rgb(196, 196, 196);
 }
 
-.design-studio > img {
-    max-width: 100%;
+.studio-cover {
+    max-height: 400px;
+    overflow: hidden;
+}
 
+.cover-center-wrapper {
+    max-height: inherit;
+    transform: translateY(50%);
+}
+
+.cover-center-wrapper > img {
+    display: block;
+    transform: translateY(-50%);
+    width: 100%;
 }
 
 .studio-name {
