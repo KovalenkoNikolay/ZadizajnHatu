@@ -1,37 +1,6 @@
-.design-studio {
-    /* background-color: rgb(238,238,238, 0.6); */
-    max-height: 350px;
-    text-align: center;
-    margin: 15px;
-    overflow: hidden;
-    position: relative;
-}
-
-.design-studio > img {
-    max-width: 100%;
-
-}
-
 #main {
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr
-}
-
-.studio-name {
-    position: absolute;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    left: 0px;
-    bottom: 0px;
-    background-color: rgba(179, 179, 179, 0.7);
-    text-align: center;
-    font-size: 15pt;
-    color: rgb(245, 245, 245);
-    letter-spacing: 0.4px;
-}
-
-.studio-name > p {
-    margin: 0;
+    grid-template-columns: 1fr 1fr;
+    //background-color: #f4f4f4;
 }
