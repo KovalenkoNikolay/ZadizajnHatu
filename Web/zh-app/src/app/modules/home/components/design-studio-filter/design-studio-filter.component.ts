@@ -13,10 +13,16 @@ export class DesignStudioFilterComponent implements OnInit {
   public between : HTMLElement;
   public button1 : HTMLElement;
   public button2 : HTMLElement;
+  public priceFrom : HTMLElement;
+  public priceTo : HTMLElement;
+
+  public amountMin : number;
+  public amountMax : number;
+  
   constructor(private designStudioSharedDataService : DesignStudioSharedDataService) { }
 
   ngOnInit() {
-    this.initSlider('id66', 'id66b', 'id661', 'id662')
+    this.initSlider('id66', 'id66b', 'id661', 'id662', 'priceFrom', 'priceTo')
   }
 
   searchDesignStudios(fromAmount: number, toAmount : number, name : string){
@@ -28,11 +34,13 @@ export class DesignStudioFilterComponent implements OnInit {
   }
 
   // FILTER
-  initSlider(idX : string, btwX : string, btn1X : string, btn2X : string){
+  initSlider(idX : string, btwX : string, btn1X : string, btn2X : string, priceFrom : string, priceTo){
     this.slider = document.getElementById(idX);
     this.between = document.getElementById(btwX); 
     this.button1 = document.getElementById(btn1X);
-    this.button2 = document.getElementById(btn2X);    
+    this.button2 = document.getElementById(btn2X);
+    this.priceFrom = document.getElementById(priceFrom); 
+    this.priceTo = document.getElementById(priceTo);
   }
 
   public buttonLeftOnMouseDown(evt) {
