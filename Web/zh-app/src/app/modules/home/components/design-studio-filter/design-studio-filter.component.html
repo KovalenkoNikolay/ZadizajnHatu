@@ -1,7 +1,17 @@
-<p>
-  Цена от:
-</p>
-<input #fromAmount type="text">
+<div id="filter">
+<div id="price">
+    <input id='priceFrom' class='range_inpt1 price' type='number' min='20' max='700'>
+    <span> — </span>
+    <input id='priceTo' class='range_inpt2 price' type='number' min='20' max='700'>
+</div>
+
+<div id='id66' class="range">
+  <div id='id66b' class='range__between' style='width:100px;'></div>
+    <button id='id661' class="range__button_1" style='margin-left:0px;' (mousedown)="buttonLeftOnMouseDown($event)"></button>
+    <button id='id662' class="range__button_2" style='margin-left:100px;' (mousedown)="buttonRightOnMouseDown($event)"></button>
+</div>
+<!-- <input #fromAmount type="text">
 <input #toAmount type="text">
 <input #name type="text">
-<button (click)="searchDesignStudios(fromAmount.value, toAmount.value, name.value)">Пошук</button>
+<button (click)="searchDesignStudios(fromAmount.value, toAmount.value, name.value)">Пошук</button> -->
+</div>

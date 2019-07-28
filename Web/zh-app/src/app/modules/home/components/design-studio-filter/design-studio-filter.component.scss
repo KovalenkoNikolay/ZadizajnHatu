@@ -1,0 +1,58 @@
+#filter{
+    position: relative;
+    margin: 10px;
+}
+
+#price{
+    margin: 10px 0 10px 0;
+}
+
+input {
+    height: 25px;
+    outline: none;
+    border:1px solid rgb(197, 197, 197);
+    padding: 0 3px 0 3px;
+}
+
+.price {
+    width: 82px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.range {
+    width:100%;
+    height:10px;
+
+    position: relative;
+    border-radius: 4px;
+    background-color: #ddd;
+}
+
+.range__button_1, .range__button_2 {
+    position: absolute;
+    top: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    cursor: move;
+    transform: translateY(-50%);
+
+    border: none;
+    border-radius: 50%;
+    background-color: #999;
+}
+.range__between
+{
+  position: absolute;
+    height: 5px;
+    width:0px;
+    margin-top:3px;
+    border: none;
+    background-color: #559933;
+}
