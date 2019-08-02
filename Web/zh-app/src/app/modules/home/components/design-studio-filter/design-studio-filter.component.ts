@@ -16,8 +16,8 @@ export class DesignStudioFilterComponent implements OnInit {
   public priceFrom : HTMLElement;
   public priceTo : HTMLElement;
 
-  public amountMin : number;
-  public amountMax : number;
+  public defaultMin : number = 10;
+  public defaultMax : number = 100;
   
   constructor(private designStudioSharedDataService : DesignStudioSharedDataService) { }
 
@@ -41,9 +41,80 @@ export class DesignStudioFilterComponent implements OnInit {
     this.button2 = document.getElementById(btn2X);
     this.priceFrom = document.getElementById(priceFrom); 
     this.priceTo = document.getElementById(priceTo);
+
+    (this.priceFrom as HTMLInputElement).value = this.defaultMin.toString();
+    (this.priceTo as HTMLInputElement).value = this.defaultMax.toString();
   }
 
-  public buttonLeftOnMouseDown(evt) {
+priceFromOnChange(evt) {
+  if (parseInt((this.priceFrom as HTMLInputElement).value) < this.defaultMin)
+      (this.priceFrom as HTMLInputElement).value = this.defaultMin.toString();
+    	if (parseInt((this.priceFrom as HTMLInputElement).value) > this.defaultMax)
+      (this.priceFrom as HTMLInputElement).value = this.defaultMax.toString();
+    	if (parseInt((this.priceFrom as HTMLInputElement).value) > parseInt((this.priceTo as HTMLInputElement).value))
+      {
+      	var temp = (this.priceFrom as HTMLInputElement).value;
+    		(this.priceFrom as HTMLInputElement).value = (this.priceTo as HTMLInputElement).value;
+    		(this.priceTo as HTMLInputElement).value = temp;
+      }
+      
+      
+        var sliderCoords = this.getCoords(this.slider);
+        var per1 = (parseInt((this.priceFrom as HTMLInputElement).value)-this.defaultMin)*100/(this.defaultMax-this.defaultMin);
+        var per2 = (parseInt((this.priceTo as HTMLInputElement).value)-this.defaultMin)*100/(this.defaultMax-this.defaultMin);
+        var left1 = per1*(this.slider.offsetWidth-this.button1.offsetWidth)/100;
+        var left2 = per2*(this.slider.offsetWidth-this.button1.offsetWidth)/100;
+        
+            this.button1.style.marginLeft = left1 + 'px'; 
+            this.button2.style.marginLeft = left2 + 'px';
+            
+            if (left1 > left2)
+              {
+                this.between.style.width = (left1-left2) + 'px';
+                this.between.style.marginLeft = left2 + 'px';
+              }
+            else
+              {
+                this.between.style.width = (left2-left1) + 'px';
+                this.between.style.marginLeft = left1 + 'px';  
+              }
+}
+
+priceToOnChange(evt){
+  if (parseInt((this.priceTo as HTMLInputElement).value) < this.defaultMin)
+      (this.priceTo as HTMLInputElement).value = this.defaultMin.toString();
+    	if (parseInt((this.priceTo as HTMLInputElement).value) > this.defaultMax)
+      (this.priceTo as HTMLInputElement).value = this.defaultMax.toString();
+    	if (parseInt((this.priceFrom as HTMLInputElement).value) > parseInt((this.priceTo as HTMLInputElement).value))
+      {
+      	var temp = (this.priceFrom as HTMLInputElement).value;
+    		(this.priceFrom as HTMLInputElement).value = (this.priceTo as HTMLInputElement).value;
+    		(this.priceTo as HTMLInputElement).value = temp;
+      }
+      
+      
+        var sliderCoords = this.getCoords(this.slider);
+        var per1 = (parseInt((this.priceFrom as HTMLInputElement).value)-this.defaultMin)*100/(this.defaultMax-this.defaultMin);
+        var per2 = (parseInt((this.priceTo as HTMLInputElement).value)-this.defaultMin)*100/(this.defaultMax-this.defaultMin);
+        var left1 = per1*(this.slider.offsetWidth-this.button1.offsetWidth)/100;
+        var left2 = per2*(this.slider.offsetWidth-this.button1.offsetWidth)/100;
+        
+            this.button1.style.marginLeft = left1 + 'px'; 
+            this.button2.style.marginLeft = left2 + 'px';
+            
+            if (left1 > left2)
+              {
+                this.between.style.width = (left1-left2) + 'px';
+                this.between.style.marginLeft = left2 + 'px';
+              }
+            else
+              {
+                this.between.style.width = (left2-left1) + 'px';
+                this.between.style.marginLeft = left1 + 'px';  
+              }
+}
+
+public buttonLeftOnMouseDown(evt) {
     var sliderCoords = this.getCoords(this.slider);
     var betweenCoords = this.getCoords(this.between); 
     var buttonCoords1 = this.getCoords(this.button1);
@@ -62,16 +133,28 @@ export class DesignStudioFilterComponent implements OnInit {
       var left2 = evt.pageX - shiftX2 - sliderCoords.left;
       var right2 = this.slider.offsetWidth - this.button2.offsetWidth;            
        
+      var per_min = 0;
+      var per_max = 0;
+
       if (left1 > left2)
         {
           this.between.style.width = (left1-left2) + 'px';
           this.between.style.marginLeft = left2 + 'px';
+
+          per_min = left2*100/(this.slider.offsetWidth-this.button1.offsetWidth);
+          per_max = left1*100/(this.slider.offsetWidth-this.button1.offsetWidth);
         }
       else
         {
           this.between.style.width = (left2-left1) + 'px';
           this.between.style.marginLeft = left1 + 'px';
+
+          per_min = left1*100/(this.slider.offsetWidth-this.button1.offsetWidth);
+          per_max = left2*100/(this.slider.offsetWidth-this.button1.offsetWidth);
         }
+
+        (this.priceFrom as HTMLInputElement).value = (this.defaultMin+Math.round((this.defaultMax-this.defaultMin)*per_min/100)).toString();
+        (this.priceTo as HTMLInputElement).value = (this.defaultMin+Math.round((this.defaultMax-this.defaultMin)*per_max/100)).toString();
   };
 
     document.onmouseup = () => {
@@ -87,6 +170,9 @@ public buttonRightOnMouseDown(evt) {
   var buttonCoords2 = this.getCoords(this.button2);
   var shiftX2 = evt.pageX - buttonCoords2.left; 
   var shiftX1 = evt.pageX - buttonCoords1.left;
+  
+  var per_min = 0;
+  var per_max = 0;
 
   document.onmousemove = (evt) => {
     var left2 = evt.pageX - shiftX2 - sliderCoords.left;
@@ -103,13 +189,21 @@ public buttonRightOnMouseDown(evt) {
           {
             this.between.style.width = (left1-left2) + 'px';
             this.between.style.marginLeft = left2 + 'px';
+
+            per_min = left2*100/(this.slider.offsetWidth-this.button1.offsetWidth);
+            per_max = left1*100/(this.slider.offsetWidth-this.button1.offsetWidth);
           }
         else
           {
             this.between.style.width = (left2-left1) + 'px';
             this.between.style.marginLeft = left1 + 'px';
+
+            per_min = left1*100/(this.slider.offsetWidth-this.button1.offsetWidth);
+            per_max = left2*100/(this.slider.offsetWidth-this.button1.offsetWidth);
           }
-        
+
+          (this.priceFrom as HTMLInputElement).value = (this.defaultMin+Math.round((this.defaultMax-this.defaultMin)*per_min/100)).toString();
+          (this.priceTo as HTMLInputElement).value = (this.defaultMin+Math.round((this.defaultMax-this.defaultMin)*per_max/100)).toString();
     };
     document.onmouseup = function() {
         document.onmousemove = document.onmouseup = null;

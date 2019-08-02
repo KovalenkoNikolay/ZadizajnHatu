@@ -1,8 +1,8 @@
 <div id="filter">
 <div id="price">
-    <input id='priceFrom' class='range_inpt1 price' type='number' min='20' max='700'>
+    <input id='priceFrom' class='range_inpt1 price' type='number' min='20' max='700' (change)="priceFromOnChange($event)">
     <span> — </span>
-    <input id='priceTo' class='range_inpt2 price' type='number' min='20' max='700'>
+    <input id='priceTo' class='range_inpt2 price' type='number' min='20' max='700' (change)="priceToOnChange($event)">
 </div>
 
 <div id='id66' class="range">
