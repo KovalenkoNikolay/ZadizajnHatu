@@ -1,23 +1,61 @@
+$border-color: rgb(197, 197, 197);
+
 #filter{
     position: relative;
-    margin: 10px;
+    margin: 40px 10px 10px 10px;
 }
 
 #price{
     margin: 10px 0 10px 0;
 }
 
-input {
+#name {
+    margin: 10px 0 0 0;
+    width: 100%;
+    height: 25px;
+    border: 0;
+    border-bottom: 1px solid  rgb(97, 96, 96);
+}
+
+#priceFrom, #priceTo {
+    width: 64px;
     height: 25px;
     outline: none;
-    border:1px solid rgb(197, 197, 197);
+    text-align: center;
+    border: 0;
+    border-bottom: 1px solid rgb(97, 96, 96); 
     padding: 0 3px 0 3px;
 }
 
-.price {
-    width: 84px;
+#search_button {
+    margin: 10px 0 0 0;
+    background-color: white;
+    width: 213px;
+    height: 40px;
+    border: 1px solid rgb(97, 96, 96);
+    border-bottom: 2px solid rgb(97, 96, 96);
+    letter-spacing: 0.1em;
+    font-size: 10pt;
+    padding: 0;
 }
 
+#search_button:hover {
+    border: 0px;
+    background-color: #2dbd58;
+    color: white;
+}
+
+#search_button:focus {
+    outline:0;
+}
+
+#search_button:active {
+    background-color:  #4ac56f;
+    color: white;
+    border: 0px;
+}
+
+// price range
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
@@ -31,6 +69,7 @@ input[type=number]::-webkit-outer-spin-button {
     position: relative;
     border-radius: 2px;
     background-color: #ddd;
+    margin-bottom: 15px;
 }
 
 .range__button_1, .range__button_2 {
@@ -48,7 +87,15 @@ input[type=number]::-webkit-outer-spin-button {
     border: #838383 1px solid;
 }
 
+.range__button_2 {
+    margin-left: 200px;
+}
+
 .range__button_1:hover, .range__button_2:hover {
+    border-color: #2dbd58;
+}
+
+.range__button_1:active, .range__button_2:active {
     border-color: #2dbd58;
 }
 
@@ -56,8 +103,8 @@ input[type=number]::-webkit-outer-spin-button {
 {
   position: absolute;
     height: 3px;
-    width:0px;
-    margin-top:2px;
+    width:200px;
+    margin-top:3px;
     border: none;
-    background-color: #2dbd58;
+    background-color:rgb(97, 96, 96);
 }

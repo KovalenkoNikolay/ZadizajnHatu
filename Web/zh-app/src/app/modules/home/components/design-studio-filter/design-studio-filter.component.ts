@@ -16,7 +16,7 @@ export class DesignStudioFilterComponent implements OnInit {
   public priceFrom : HTMLElement;
   public priceTo : HTMLElement;
 
-  public defaultMin : number = 10;
+  public defaultMin : number = 0;
   public defaultMax : number = 100;
   
   constructor(private designStudioSharedDataService : DesignStudioSharedDataService) { }
@@ -57,8 +57,7 @@ priceFromOnChange(evt) {
     		(this.priceFrom as HTMLInputElement).value = (this.priceTo as HTMLInputElement).value;
     		(this.priceTo as HTMLInputElement).value = temp;
       }
-      
-      
+            
         var sliderCoords = this.getCoords(this.slider);
         var per1 = (parseInt((this.priceFrom as HTMLInputElement).value)-this.defaultMin)*100/(this.defaultMax-this.defaultMin);
         var per2 = (parseInt((this.priceTo as HTMLInputElement).value)-this.defaultMin)*100/(this.defaultMax-this.defaultMin);
