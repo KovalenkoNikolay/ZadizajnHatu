@@ -9,7 +9,7 @@ namespace PublicApi
     {
         public static void Configure()
         {
-            Mapper.Initialize(cfg =>
+            Mapper.Initialize(cfg => 
             {
                 cfg.CreateMap<User, AppUser>();
                 cfg.CreateMap<CreateDesignStudio, DesignStudio>();
