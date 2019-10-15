@@ -23,5 +23,11 @@ namespace BusinessLogic.Managers
 
             return imageName;
         }
+
+        public static string GetImgFullPath(string imgName)
+        {
+            // TODO: Return link to S3
+            return "assets\\" + $"{imgName}.jpg";
+        }
     }
 }

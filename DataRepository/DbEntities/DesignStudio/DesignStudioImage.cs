@@ -12,6 +12,8 @@ namespace DataRepository.DbEntities.DesignStudio
 
         public string Name { get; set; }
 
-        public Guid PortfolioId { get; set; }
+        public string FileName { get; set; }
+
+        public Guid DesignStudioPortfolioId { get; set; }
     }
 }
