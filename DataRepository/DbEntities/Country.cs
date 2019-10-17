@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataRepository.DbEntities
 {
-    public class WorkerPrice
+    public class Country
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid WorkerPriceId { get; set; }
+        public Guid CountryId { get; set; }
+        public string Name { get; set; }
 
-        public decimal Amount { get; set; }
-
-        public Worker Worker { get; set; }
+        public ICollection<Region> Regions { get; set; }
+        public ICollection<WorkGeography> WorkGeographies { get; set; }
     }
 }

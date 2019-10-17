@@ -6,12 +6,12 @@ namespace DataRepository.DbEntities
 {
     public class WorkGeography
     {
-        public Guid WorkerId { get; set; }
+        public City City { get; set; }
 
-        public Guid? CityId { get; set; }
+        public Region Region { get; set; }
 
-        public Guid? RegionId { get; set; }
+        public Country Country { get; set; }
 
-        public Guid? CountryId { get; set; }
+        public Worker Worker { get; set; }
     }
 }

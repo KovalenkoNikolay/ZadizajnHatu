@@ -5,16 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataRepository.DbEntities
 {
-    public class PortfolioProject
+    public class City
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid PortfolioProjectId { get; set; }
+        public Guid CityId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
 
-        public ICollection<Image> Images { get; set; }
+        public Region Region { get; set; }
 
-        public Worker Worker { get; set; }
+        public ICollection<WorkerCity> WorkerCities { get; set; }
+        public ICollection<WorkGeography> WorkGeographies { get; set; }
     }
 }
