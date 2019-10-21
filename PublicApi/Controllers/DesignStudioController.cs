@@ -28,7 +28,8 @@ namespace PublicApi.Controllers
         public DesignStudioController(AppDbContext dbContext)
         {
             _imageManager = new Lazy<ImageManager>();
-            _appDbContext = new Lazy<AppDbContext>(() => dbContext);
+            //_appDbContext = new Lazy<AppDbContext>(() => new AppDbContext(configuration));
+            //_appDbContext = new Lazy<AppDbContext>(() => dbContext);
         }
 
         [HttpGet]
