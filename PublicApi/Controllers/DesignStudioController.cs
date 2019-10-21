@@ -23,7 +23,7 @@ namespace PublicApi.Controllers
         public DesignStudioController(IConfiguration configuration)
         {
             _imageManager = new Lazy<ImageManager>();
-            _appDbContext = new Lazy<AppDbContext>(() => new AppDbContext(configuration));
+            //_appDbContext = new Lazy<AppDbContext>(() => new AppDbContext(configuration));
         }
 
         [HttpGet]

@@ -13,6 +13,8 @@ namespace DataRepository.DbEntities
 
         public decimal Amount { get; set; }
 
+        public Guid WorkerId { get; set; }
+
         public Worker Worker { get; set; }
     }
 }
