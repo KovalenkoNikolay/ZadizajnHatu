@@ -32,56 +32,56 @@ namespace PublicApi.Controllers
             //_appDbContext = new Lazy<AppDbContext>(() => dbContext);
         }
 
-        [HttpGet]
-        public async Task<List<DesignStudio>> GetDesignStudios([FromQuery] DesignStudioSearchFilter searchFilter)
-        {
-            var designStudiosQuery = DbContext.DesignStudios.Include(ds => ds.Prices).AsQueryable();
-            if (searchFilter.FromAmount.HasValue)
-            {
-                designStudiosQuery = designStudiosQuery.Where(ds => ds.Prices.Any(p=>p.MinPrice > searchFilter.FromAmount));
-            }
-            if (searchFilter.ToAmount.HasValue)
-            {
-                designStudiosQuery = designStudiosQuery.Where(ds => ds.Prices.Any(p => p.MinPrice < searchFilter.ToAmount));
-            }
-            if (searchFilter.Name != null)
-            {
-                designStudiosQuery = designStudiosQuery.Where(ds => ds.Name == searchFilter.Name);
-            }
+        //[HttpGet]
+        //public async Task<List<DesignStudio>> GetDesignStudios([FromQuery] DesignStudioSearchFilter searchFilter)
+        //{
+        //    var designStudiosQuery = DbContext.DesignStudios.Include(ds => ds.Prices).AsQueryable();
+        //    if (searchFilter.FromAmount.HasValue)
+        //    {
+        //        designStudiosQuery = designStudiosQuery.Where(ds => ds.Prices.Any(p=>p.MinPrice > searchFilter.FromAmount));
+        //    }
+        //    if (searchFilter.ToAmount.HasValue)
+        //    {
+        //        designStudiosQuery = designStudiosQuery.Where(ds => ds.Prices.Any(p => p.MinPrice < searchFilter.ToAmount));
+        //    }
+        //    if (searchFilter.Name != null)
+        //    {
+        //        designStudiosQuery = designStudiosQuery.Where(ds => ds.Name == searchFilter.Name);
+        //    }
 
-            var designStudios = designStudiosQuery.Take(5).ToList();
+        //    var designStudios = designStudiosQuery.Take(5).ToList();
 
-            var targetDesignStudios = Mapper.Map<List<DesignStudio>>(designStudios);
+        //    var targetDesignStudios = Mapper.Map<List<DesignStudio>>(designStudios);
             
-            return targetDesignStudios;
-        }
+        //    return targetDesignStudios;
+        //}
 
-        [HttpGet]
-        [Route("{studioId}/portfolios")]
-        public async Task<List<DesignStudioPortfolio>> GetPortfoliosForDesignStudio(Guid studioId)
-        {
-            var designStudio = DbContext.DesignStudioPortfolio
-                    .Include(ds => ds.Images)
-                    .Where(ds=>ds.DesignStudioId == studioId)
-                    .ToList();
+        //[HttpGet]
+        //[Route("{studioId}/portfolios")]
+        //public async Task<List<DesignStudioPortfolio>> GetPortfoliosForDesignStudio(Guid studioId)
+        //{
+        //    var designStudio = DbContext.DesignStudioPortfolio
+        //            .Include(ds => ds.Images)
+        //            .Where(ds=>ds.DesignStudioId == studioId)
+        //            .ToList();
 
-            var targetDesignStudio = Mapper.Map<List<DesignStudioPortfolio>>(designStudio);
+        //    var targetDesignStudio = Mapper.Map<List<DesignStudioPortfolio>>(designStudio);
 
-            return targetDesignStudio;
-        }
+        //    return targetDesignStudio;
+        //}
 
-        [HttpGet]
-        [Route("{studioId}")]
-        public async Task<DesignStudio> GetDesignStudioById(Guid studioId)
-        {
-            var designStudio = DbContext.DesignStudios
-                .Include(ds => ds.Prices)
-                .FirstOrDefault(ds => ds.Id == studioId);
+        //[HttpGet]
+        //[Route("{studioId}")]
+        //public async Task<DesignStudio> GetDesignStudioById(Guid studioId)
+        //{
+        //    var designStudio = DbContext.DesignStudios
+        //        .Include(ds => ds.Prices)
+        //        .FirstOrDefault(ds => ds.Id == studioId);
 
-            var targetDesignStudio = Mapper.Map<DesignStudio>(designStudio);
+        //    var targetDesignStudio = Mapper.Map<DesignStudio>(designStudio);
 
-            return targetDesignStudio;
-        }
+        //    return targetDesignStudio;
+        //}
 
 
 
