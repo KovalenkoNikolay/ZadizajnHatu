@@ -1,0 +1,110 @@
+.design-studio {
+    padding: 10px;
+    max-height: 470px;
+    text-align: center;
+    margin: 15px 10px 0 10px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid rgb(196, 196, 196);
+    background-color: white;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+}
+
+.studio-cover {
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.cover-center-wrapper {
+    max-height: inherit;
+    transform: translateY(50%);
+}
+
+.cover-center-wrapper > img {
+    display: block;
+    transform: translateY(-50%);
+    width: 100%;
+}
+
+// Studio info lin 1
+.line1, .line2 {
+    width: 100%;
+    text-align: left;
+    position: relative;
+}
+
+.line1 > div:nth-child(1) {
+    margin-right: 100px;
+}
+
+.studio-name {
+    font-size: 15pt;
+    padding: 10px 0 5px 0px;
+    text-align: left;
+    font-weight: bold;
+    color: #444;
+}
+
+.line1 > div:nth-child(2) {
+    width: 100px;
+    text-align: right;
+    position: absolute;
+    top: 15px;
+    right: 0;
+}
+
+.price {
+    margin: 0;
+}
+
+.price > div {
+    display:inline-block;
+    margin: 0;
+}
+
+.price > div:nth-child(1) {
+    font-size: 9pt;
+    padding: 0 5px 0 5px;
+}
+
+.price > div:nth-child(2) {
+    font-size: 11pt;
+    padding-right: 5px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.price > div:nth-child(3) {
+    font-size: 9pt;
+}
+
+// Studio info line 2
+.line2 > div:nth-child(1) {
+    margin-right: 100px;
+    font-size: 11pt;
+    padding-top: 2px;
+}
+
+.line2 > div:nth-child(2) {
+    width: 100px;
+    text-align: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.rating {
+    margin: 0;
+    text-align: right;
+}
+
+.rating > img {
+    height: 15px;
+    display:inline-block;
+}
+
+.rating > div {
+    display:inline-block;
+    padding-right: 5px;
+}
+

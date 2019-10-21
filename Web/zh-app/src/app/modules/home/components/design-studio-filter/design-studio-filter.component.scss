@@ -1,0 +1,119 @@
+$border-color: rgb(197, 197, 197);
+
+#filter{
+    position: relative;
+    margin: 40px 10px 10px 10px;
+}
+
+#price{
+    margin: 10px 0 10px 0;
+}
+
+#name {
+    margin: 10px 0 0 0;
+    width: 100%;
+    height: 40px;
+    border: 0;
+    border-bottom: 1px solid  rgb(97, 96, 96);
+    padding: 0 0 0 10px;
+    box-sizing: border-box;
+}
+
+#name::-webkit-input-placeholder{
+    font-style: italic;
+}
+
+#priceFrom, #priceTo {
+    width: 64px;
+    height: 25px;   
+    outline: none;
+    text-align: center;
+    border: 0;
+    border-bottom: 1px solid rgb(97, 96, 96); 
+    padding: 0 3px 0 3px;
+    margin: 0 0 0 8px;
+}
+
+#search_button {
+    margin: 10px 0 0 0;
+    background-color: white;
+    width: 213px;
+    height: 40px;
+    border: 1px solid rgb(97, 96, 96);
+    border-bottom: 2px solid rgb(97, 96, 96);
+    letter-spacing: 0.1em;
+    font-size: 10pt;
+    padding: 0;
+    margin: 20px 0 0 0;
+}
+
+#search_button:hover {
+    border: 0px;
+    background-color: rgb(97, 96, 96);
+    color: white;
+}
+
+#search_button:focus {
+    outline:0;
+}
+
+#search_button:active {
+    background-color: rgb(97, 96, 96);
+    color: white;
+    border: 0px;
+}
+
+// price range
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.range__button_1, .range__button_2 {
+    position: absolute;
+    top: 50%;
+
+    width: 15px;
+    height: 15px;
+  
+    transform: translateY(-50%);
+
+    border: none;
+    border-radius: 50%;
+    background-color: rgb(243, 243, 243);
+    border: #838383 1px solid;
+}
+
+.range__button_2 {
+    margin-left: 200px;
+}
+
+.range__button_1:hover, .range__button_2:hover {
+    border-color: rgb(97, 96, 96);
+}
+
+.range__button_1:active, .range__button_2:active {
+    border-color: rgb(97, 96, 96);
+}
+
+
+.range {
+    width:100%;
+    height:6px;
+
+    position: relative;
+    border-radius: 1px;
+    background-color: #ddd;
+    margin: 20px 0 10px 0;
+}
+
+.range__between
+{
+  position: absolute;
+    height: 2px;
+    width:200px;
+    margin-top:2px;
+    border: none;
+    background-color:rgb(97, 96, 96);
+}

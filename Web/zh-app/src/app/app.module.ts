@@ -1,12 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { DesignStudioPreviewComponent } from './modules/home/components/design-studio-preview/design-studio-preview.component';
+import { AppRoutingModule, routingComponents } from './app-routing.module';
+import { AppComponent } from './modules/home/pages/app.component';
+import { FooterComponent } from './core/footer/footer.component';
+import { HeaderComponent } from './core/header/header.component';
+import { LeftbarComponent } from './core/leftbar/leftbar.component';
+import { MainComponent } from './modules/home/components/main/main.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DesignStudioFilterComponent } from './modules/home/components/design-studio-filter/design-studio-filter.component';
+import { DesignStudioDetailsComponent } from './modules/home/components/design-studio-details/design-studio-details.component';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-import { LeftbarComponent } from './leftbar/leftbar.component';
-import { MainComponent } from './main/main.component';
+import  { PageStateService } from './core/services/page-state.service';
+import  { DesignStudioSharedDataService } from './core/services/design-studio-shared-data.service';
+import { DesignStudioComponent } from './modules/home/components/design-studio/design-studio.component';
 
 
 @NgModule({
@@ -16,12 +23,18 @@ import { MainComponent } from './main/main.component';
     HeaderComponent,
     LeftbarComponent,
     MainComponent,
+    DesignStudioPreviewComponent,
+    routingComponents,
+    DesignStudioFilterComponent,
+    DesignStudioDetailsComponent,
+    DesignStudioComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
-  providers: [],
+  providers: [PageStateService, DesignStudioSharedDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

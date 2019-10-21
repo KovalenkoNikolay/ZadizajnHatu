@@ -1,0 +1,18 @@
+<div id="filter">
+  <div id="price">
+      <input #priceFrom id='priceFrom' class='price' type='number' (change)="priceFromOnChange($event)">
+      <span> - </span>
+      <input #priceTo id='priceTo' class='price' type='number' (change)="priceToOnChange($event)">
+      <span style='margin-left: 6px;'>грн.</span>
+  </div>
+
+  <div id='id66' class="range">
+    <div id='id66b' class='range__between'></div>
+      <button id='id661' class="range__button_1" style='margin-left:0px;' (mousedown)="buttonLeftOnMouseDown($event)"></button>
+      <button id='id662' class="range__button_2" (mousedown)="buttonRightOnMouseDown($event)"></button>
+  </div>
+  <input id="name" #name type="text" placeholder="Назва">
+  <input id="name" #name type="text" placeholder="Місто">
+  <input id="name" #name type="text" placeholder="Інше">
+  <button id="search_button" (click)="searchDesignStudios(priceFrom.value, priceTo.value, null)">ПОШУК</button>
+</div>

@@ -1,4 +1,4 @@
-﻿using DataRepository.DbEntities;
+using DataRepository.DbEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataRepository

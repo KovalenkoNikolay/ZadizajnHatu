@@ -13,10 +13,10 @@ namespace DataRepository.DbEntities.DesignStudio
 
         public string Name { get; set; }
 
-        public string Cover { get; set; }
+        public string CoverName { get; set; }
 
-        public string AppUserId { get; set; }
+        public List<DesignStudioPortfolio> Portfolios { get; set; }
 
-        public List<Portfolio> Portfolios { get; set; }
+        public List<DesignStudioPrice> Prices { get; set; }
     }
 }

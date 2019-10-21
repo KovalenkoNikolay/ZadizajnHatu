@@ -1,0 +1,45 @@
+<div class="design-studio">
+  
+  <div class="studio-cover">
+    <div class="cover-center-wrapper">
+        <img (click)="onSelect(designStudio.id)" src="{{designStudio.coverPath}}">
+    </div>
+  </div>
+  <div class="line1">
+    <div><div class="studio-name">{{designStudio.name}}</div></div>
+
+    <div class="rating">
+            
+        <img src="https://img.icons8.com/color/48/000000/filled-star.png">
+        <img src="https://img.icons8.com/color/48/000000/filled-star.png">
+        <img src="https://img.icons8.com/color/48/000000/filled-star.png">
+        <img src="https://img.icons8.com/color/48/000000/filled-star.png">
+        <img src="https://img.icons8.com/color/48/000000/filled-star.png">
+      </div>
+    
+  </div>
+  <div class="line2">
+    <div>
+      г. Киев
+    </div>
+    <div>
+        <div>
+            <div class="price">
+              <div>Від</div>
+              <div>{{designStudio.prices[0].min}}</div>
+              <div> грн\м2</div>
+            </div>
+          </div>
+    </div>
+  </div>
+  <!-- <div class="studio-name">{{designStudio.name}}</div>
+  <div class="studio-info">
+    <div class="price">
+        <div>Від</div>
+        <div>{{designStudio.prices[0].min}}</div>
+        <div> грн\м2</div>
+    </div>
+    <div class="rating">
+      <div>4.1</div>
+      <img src="https://img.icons8.com/color/48/000000/filled-star.png"> -->
+</div>
