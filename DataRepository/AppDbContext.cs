@@ -19,6 +19,11 @@ namespace DataRepository
         {
         }
 
-        public DbSet<Worker> Users { get; set; }
+        protected override void Seed(MigrationApp.Models.UserContext context)
+        {
+
+        }
+
+        public DbSet<Worker> Workers { get; set; }
     }
 }
