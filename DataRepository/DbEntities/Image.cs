@@ -7,8 +7,9 @@ namespace DataRepository.DbEntities
     public class Image
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ImageId { get; set; }
+
+        public string Name { get; set; }
 
         public string Description { get; set; }
 
