@@ -10,30 +10,39 @@ namespace DataRepository
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            var wirkerTypeID1 = 1;
-
             var workTypes = new List<WorkerType>()
             {
-                new WorkerType { WorkerTypeId = wirkerTypeID1, Name = "Дизайнер" },
+                new WorkerType { WorkerTypeId = 1, Name = "Дизайнер" },
                 new WorkerType { WorkerTypeId = 2, Name = "Чертежник" },
                 new WorkerType { WorkerTypeId = 3, Name = "Архитектор" }
             };
-
             
             modelBuilder.Entity<WorkerType>().HasData(workTypes);
 
-            var workerGuid1 = Guid.NewGuid();
             var workers = new List<Worker>
             {
                 new Worker
                 {
-                    WorkerId = workerGuid1,
+                    WorkerId = Guid.NewGuid(),
                     ContactInfo = "Ломоносова 46/1",
                     Name = "Veranda Design Studio",
-                    WorkerTypeId = wirkerTypeID1,
+                    WorkerTypeId = workTypes[0].WorkerTypeId,
                 },
             };
             modelBuilder.Entity<Worker>().HasData(workers);
+
+            var workerPrices = new List<WorkerPrice> 
+            {
+                new WorkerPrice
+                {
+                    Amount = 10,
+                    WorkerPriceId = Guid.NewGuid(),
+                    WorkerId = workers[0].WorkerId
+                }
+            };
+            
+            modelBuilder.Entity<WorkerPrice>().HasData(workerPrices);
+
 
             //var worker1 = Guid.NewGuid();
 
@@ -140,7 +149,7 @@ namespace DataRepository
             //                }
             //            }
             //        },
-                    
+
             //    }
             //);
         }

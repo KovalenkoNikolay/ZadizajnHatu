@@ -26,11 +26,11 @@ namespace PublicApi.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Worker>> GetDesignStudios([FromQuery] DesignStudioSearchFilter searchFilter)
+        public async Task<List<Worker>> GetWorkers()
         {
             var workers = new List<Worker>();
 
-            //workers = DbContext.Workers.
+            workers = DbContext.Workers.ToList();
 
             return workers;
         }
