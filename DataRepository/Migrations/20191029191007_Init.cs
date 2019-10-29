@@ -1,6 +1,6 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataRepository.Migrations
 {
@@ -25,7 +25,7 @@ namespace DataRepository.Migrations
                 columns: table => new
                 {
                     WorkerTypeId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -57,7 +57,7 @@ namespace DataRepository.Migrations
                 columns: table => new
                 {
                     ServiceId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Name = table.Column<string>(nullable: true),
                     WorkerTypeId = table.Column<int>(nullable: true)
                 },
@@ -258,6 +258,21 @@ namespace DataRepository.Migrations
                         principalColumn: "PortfolioProjectId",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "WorkerType",
+                columns: new[] { "WorkerTypeId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Дизайнер" },
+                    { 2, "Чертежник" },
+                    { 3, "Архитектор" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Workers",
+                columns: new[] { "WorkerId", "ContactInfo", "Name", "WorkerTypeId" },
+                values: new object[] { new Guid("22219702-c91c-4da5-9f96-d24baa8526b6"), "Ломоносова 46/1", "Veranda Design Studio", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_City_RegionId",

@@ -3,8 +3,8 @@ using System;
 using DataRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataRepository.Migrations
 {
@@ -15,9 +15,9 @@ namespace DataRepository.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("DataRepository.DbEntities.City", b =>
                 {
@@ -102,8 +102,7 @@ namespace DataRepository.Migrations
             modelBuilder.Entity("DataRepository.DbEntities.Service", b =>
                 {
                     b.Property<int>("ServiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
@@ -158,6 +157,15 @@ namespace DataRepository.Migrations
                     b.HasIndex("WorkerTypeId");
 
                     b.ToTable("Workers");
+
+                    b.HasData(
+                        new
+                        {
+                            WorkerId = new Guid("22219702-c91c-4da5-9f96-d24baa8526b6"),
+                            ContactInfo = "Ломоносова 46/1",
+                            Name = "Veranda Design Studio",
+                            WorkerTypeId = 1
+                        });
                 });
 
             modelBuilder.Entity("DataRepository.DbEntities.WorkerCity", b =>
@@ -217,14 +225,30 @@ namespace DataRepository.Migrations
             modelBuilder.Entity("DataRepository.DbEntities.WorkerType", b =>
                 {
                     b.Property<int>("WorkerTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
                     b.HasKey("WorkerTypeId");
 
                     b.ToTable("WorkerType");
+
+                    b.HasData(
+                        new
+                        {
+                            WorkerTypeId = 1,
+                            Name = "Дизайнер"
+                        },
+                        new
+                        {
+                            WorkerTypeId = 2,
+                            Name = "Чертежник"
+                        },
+                        new
+                        {
+                            WorkerTypeId = 3,
+                            Name = "Архитектор"
+                        });
                 });
 
             modelBuilder.Entity("DataRepository.DbEntities.City", b =>

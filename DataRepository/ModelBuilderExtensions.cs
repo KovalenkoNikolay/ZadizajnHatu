@@ -16,7 +16,7 @@ namespace DataRepository
             {
                 new WorkerType { WorkerTypeId = wirkerTypeID1, Name = "Дизайнер" },
                 new WorkerType { WorkerTypeId = 2, Name = "Чертежник" },
-                new WorkerType { WorkerTypeId = 2, Name = "Архитектор" }
+                new WorkerType { WorkerTypeId = 3, Name = "Архитектор" }
             };
 
             
