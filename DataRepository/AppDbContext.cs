@@ -17,11 +17,7 @@ namespace DataRepository
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-        }
-
-        protected override void Seed(MigrationApp.Models.UserContext context)
-        {
-
+            modelBuilder.Seed();
         }
 
         public DbSet<Worker> Workers { get; set; }

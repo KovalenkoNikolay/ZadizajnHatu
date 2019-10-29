@@ -73,23 +73,23 @@ namespace DataRepository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Workers",
                 columns: table => new
                 {
                     WorkerId = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     ContactInfo = table.Column<string>(nullable: true),
-                    WorkerTypeId = table.Column<int>(nullable: true)
+                    WorkerTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.WorkerId);
+                    table.PrimaryKey("PK_Workers", x => x.WorkerId);
                     table.ForeignKey(
-                        name: "FK_Users_WorkerType_WorkerTypeId",
+                        name: "FK_Workers_WorkerType_WorkerTypeId",
                         column: x => x.WorkerTypeId,
                         principalTable: "WorkerType",
                         principalColumn: "WorkerTypeId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,17 +118,17 @@ namespace DataRepository.Migrations
                     PortfolioProjectId = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    WorkerId = table.Column<Guid>(nullable: true)
+                    WorkerId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PortfolioProject", x => x.PortfolioProjectId);
                     table.ForeignKey(
-                        name: "FK_PortfolioProject_Users_WorkerId",
+                        name: "FK_PortfolioProject_Workers_WorkerId",
                         column: x => x.WorkerId,
-                        principalTable: "Users",
+                        principalTable: "Workers",
                         principalColumn: "WorkerId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -136,16 +136,16 @@ namespace DataRepository.Migrations
                 columns: table => new
                 {
                     WorkerPriceId = table.Column<Guid>(nullable: false),
-                    Amount = table.Column<decimal>(nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     WorkerId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkerPrice", x => x.WorkerPriceId);
                     table.ForeignKey(
-                        name: "FK_WorkerPrice_Users_WorkerId",
+                        name: "FK_WorkerPrice_Workers_WorkerId",
                         column: x => x.WorkerId,
-                        principalTable: "Users",
+                        principalTable: "Workers",
                         principalColumn: "WorkerId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -168,9 +168,9 @@ namespace DataRepository.Migrations
                         principalColumn: "ServiceId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkerService_Users_WorkerId",
+                        name: "FK_WorkerService_Workers_WorkerId",
                         column: x => x.WorkerId,
-                        principalTable: "Users",
+                        principalTable: "Workers",
                         principalColumn: "WorkerId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -193,9 +193,9 @@ namespace DataRepository.Migrations
                         principalColumn: "CityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkerCity_Users_WorkerId",
+                        name: "FK_WorkerCity_Workers_WorkerId",
                         column: x => x.WorkerId,
-                        principalTable: "Users",
+                        principalTable: "Workers",
                         principalColumn: "WorkerId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -232,9 +232,9 @@ namespace DataRepository.Migrations
                         principalColumn: "RegionId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_WorkGeography_Users_WorkerId",
+                        name: "FK_WorkGeography_Workers_WorkerId",
                         column: x => x.WorkerId,
-                        principalTable: "Users",
+                        principalTable: "Workers",
                         principalColumn: "WorkerId",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -244,6 +244,7 @@ namespace DataRepository.Migrations
                 columns: table => new
                 {
                     ImageId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     PortfolioProjectId = table.Column<Guid>(nullable: true)
                 },
@@ -284,11 +285,6 @@ namespace DataRepository.Migrations
                 column: "WorkerTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_WorkerTypeId",
-                table: "Users",
-                column: "WorkerTypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_WorkerCity_CityId",
                 table: "WorkerCity",
                 column: "CityId");
@@ -303,6 +299,11 @@ namespace DataRepository.Migrations
                 table: "WorkerPrice",
                 column: "WorkerId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Workers_WorkerTypeId",
+                table: "Workers",
+                column: "WorkerTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkerService_ServiceId",
@@ -362,7 +363,7 @@ namespace DataRepository.Migrations
                 name: "City");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Workers");
 
             migrationBuilder.DropTable(
                 name: "Region");

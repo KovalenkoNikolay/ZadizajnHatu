@@ -14,6 +14,7 @@ namespace DataRepository.DbEntities
         // JSON
         public string ContactInfo { get; set; }
 
+        public int WorkerTypeId { get; set; }
         public WorkerType WorkerType { get; set; }
         public WorkerPrice WorkerPrice { get; set; }
 

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataRepository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191021105216_Init")]
+    [Migration("20191029153235_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,6 +56,8 @@ namespace DataRepository.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("Name");
+
                     b.Property<Guid?>("PortfolioProjectId");
 
                     b.HasKey("ImageId");
@@ -74,7 +76,7 @@ namespace DataRepository.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<Guid?>("WorkerId");
+                    b.Property<Guid>("WorkerId");
 
                     b.HasKey("PortfolioProjectId");
 
@@ -151,13 +153,13 @@ namespace DataRepository.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("WorkerTypeId");
+                    b.Property<int>("WorkerTypeId");
 
                     b.HasKey("WorkerId");
 
                     b.HasIndex("WorkerTypeId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Workers");
                 });
 
             modelBuilder.Entity("DataRepository.DbEntities.WorkerCity", b =>
@@ -183,7 +185,8 @@ namespace DataRepository.Migrations
                     b.Property<Guid>("WorkerPriceId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("Amount");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<Guid>("WorkerId");
 
@@ -244,7 +247,8 @@ namespace DataRepository.Migrations
                 {
                     b.HasOne("DataRepository.DbEntities.Worker", "Worker")
                         .WithMany("PortfolioProjects")
-                        .HasForeignKey("WorkerId");
+                        .HasForeignKey("WorkerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DataRepository.DbEntities.Region", b =>
@@ -284,7 +288,8 @@ namespace DataRepository.Migrations
                 {
                     b.HasOne("DataRepository.DbEntities.WorkerType", "WorkerType")
                         .WithMany()
-                        .HasForeignKey("WorkerTypeId");
+                        .HasForeignKey("WorkerTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DataRepository.DbEntities.WorkerCity", b =>
