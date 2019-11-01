@@ -57,7 +57,7 @@ namespace PublicApi.Controllers
         //}
 
         //[HttpGet]
-        //[Route("{studioId}/portfolios")]
+        //[Route("{studioId}/portfolios")]z
         //public async Task<List<DesignStudioPortfolio>> GetPortfoliosForDesignStudio(Guid studioId)
         //{
         //    var designStudio = DbContext.DesignStudioPortfolio

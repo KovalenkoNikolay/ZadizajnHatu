@@ -1,5 +1,6 @@
 ﻿using DataRepository.DbEntities;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,12 +20,24 @@ namespace DataRepository
             
             modelBuilder.Entity<WorkerType>().HasData(workTypes);
 
+
             var workers = new List<Worker>
             {
                 new Worker
                 {
                     WorkerId = Guid.NewGuid(),
-                    ContactInfo = "Ломоносова 46/1",
+                    ContactInfo = JsonConvert.SerializeObject(new
+                    {
+                        address = "Ломоносова 50",
+                        email = "verandadesignstuio@gmail.com",
+                        phones = new string[] { "+1111111111", "222222222222" },
+                        site = "verandadesignstuion.com",
+                        socialMedia = new { 
+                            instagram = "instagramVeranda",
+                            facebook = "facebookVeranda",
+                            pinterest = "pinterestVeranda"
+                        }
+                    }),
                     Name = "Veranda Design Studio",
                     WorkerTypeId = workTypes[0].WorkerTypeId,
                 },

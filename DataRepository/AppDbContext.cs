@@ -21,5 +21,6 @@ namespace DataRepository
         }
 
         public DbSet<Worker> Workers { get; set; }
+        public DbSet<PortfolioProject> PortfolioProjects { get; set; }
     }
 }

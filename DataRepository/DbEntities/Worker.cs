@@ -11,8 +11,13 @@ namespace DataRepository.DbEntities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid WorkerId { get; set; }
         public string Name { get; set; }
+        public string Avatar { get; set; }
         // JSON
         public string ContactInfo { get; set; }
+
+        public int Rating { get; set; }
+
+        public DateTime RegistrationDate { get; set; }
 
         public int WorkerTypeId { get; set; }
         public WorkerType WorkerType { get; set; }
