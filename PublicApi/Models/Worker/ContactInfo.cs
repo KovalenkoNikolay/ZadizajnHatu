@@ -19,6 +19,6 @@
 
         public string Facebook { get; set; }
 
-        public string Pinterest { get; set; }
+        public string Behance { get; set; }
     }
 }

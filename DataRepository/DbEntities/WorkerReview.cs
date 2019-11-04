@@ -16,6 +16,6 @@ namespace DataRepository.DbEntities
 
         public Guid WorkerId { get; set; }
 
-        // public Guid UserId { get; set; }
+        // public Guid ClientId { get; set; }
     }
 }

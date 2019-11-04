@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataRepository;
+using DataRepository.DbEntities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PublicApi.Controllers
@@ -46,6 +47,29 @@ namespace PublicApi.Controllers
             var workerProjects = DbContext.PortfolioProjects.Where(pp => pp.WorkerId == id);
 
             return Mapper.Map<Models.Worker.PortfolioProject>(workerProjects);
+        }
+
+        [HttpPost]
+        [Route("{id}/reviews")]
+        public async void AddReviewForWorker(Guid wokerId, string comment, int rating)
+        {
+            var review = new WorkerReview() {
+                Comment = comment,
+                WorkerId = wokerId,
+                Rating = rating
+            };
+
+            DbContext.WorkerReviews.Add(review);
+            DbContext.SaveChanges();
+        }
+
+        [HttpGet]
+        [Route("{id}/reviews")]
+        public async Task<List<Models.Worker.WorkerReview>> GetWorkerReviews(Guid id)
+        {
+            var workerReviews = DbContext.WorkerReviews.Where(wr => wr.WorkerId == id);
+
+            return Mapper.Map<List<Models.Worker.WorkerReview>>(workerReviews);
         }
     }
 }
