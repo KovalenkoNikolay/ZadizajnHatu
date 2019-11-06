@@ -15,6 +15,7 @@ namespace DataRepository.DbEntities
         public string Comment { get; set; }
 
         public Guid WorkerId { get; set; }
+        public Worker Worker { get; set; }
 
         // public Guid ClientId { get; set; }
     }

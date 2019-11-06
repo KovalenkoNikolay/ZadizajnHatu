@@ -10,7 +10,7 @@ namespace PublicApi
         {
             Mapper.Initialize(cfg => 
             {
-                cfg.CreateMap<DataRepository.DbEntities.Worker, Worker>();
+                cfg.CreateMap<DataRepository.DbEntities.Worker, WorkerPreview>();
                 cfg.CreateMap<DataRepository.DbEntities.PortfolioProject, PortfolioProject>();
                 cfg.CreateMap<DataRepository.DbEntities.WorkerReview, WorkerReview>();
                 cfg.CreateMap<DataRepository.DbEntities.Image, Models.Image>();
