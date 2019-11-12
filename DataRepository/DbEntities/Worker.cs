@@ -15,6 +15,8 @@ namespace DataRepository.DbEntities
         // JSON
         public string ContactInfo { get; set; }
 
+        public bool RemoteWork { get; set; }
+
         public DateTime RegistrationDate { get; set; }
 
         public int WorkerTypeId { get; set; }

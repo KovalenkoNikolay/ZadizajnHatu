@@ -7,6 +7,7 @@ using DataRepository;
 using DataRepository.DbEntities;
 using Microsoft.AspNetCore.Mvc;
 using PublicApi.Managers;
+using PublicApi.Models.Worker;
 
 namespace PublicApi.Controllers
 {
@@ -24,11 +25,24 @@ namespace PublicApi.Controllers
         }
 
         [HttpGet("")]
-        public async Task<List<Models.Worker.WorkerPreview>> GetWorkers()
+        public async Task<List<WorkerPreview>> GetWorkers(WorkerSearchCriteria searchCriteria)
         {
-            var workers = DbContext.Workers.ToList();
+            var workers = DbContext.Workers.AsQueryable();
 
-            var workerPreviews = Mapper.Map<List<Models.Worker.WorkerPreview>>(workers);
+            if (searchCriteria.AmountFrom.HasValue)
+            {
+                workers.Where(w=>w.WorkerPrice.Amount >= searchCriteria.AmountFrom);
+            }
+            if (searchCriteria.AmountTo.HasValue)
+            {
+                workers.Where(w => w.WorkerPrice.Amount <= searchCriteria.AmountTo);
+            }
+            if (searchCriteria.RemoteWork)
+            {
+                workers.Where(w => w.Re == true);
+            }
+
+            var workerPreviews = Mapper.Map<List<WorkerPreview>>(workers.ToList());
 
             
             foreach (var workerPreview in workerPreviews)
@@ -66,7 +80,7 @@ namespace PublicApi.Controllers
         [Route("{id}/reviews")]
         public async void AddReviewForWorker(Guid wokerId, string comment, int rating)
         {
-            var review = new WorkerReview() {
+            var review = new DataRepository.DbEntities.WorkerReview() {
                 Comment = comment,
                 WorkerId = wokerId,
                 Rating = rating
