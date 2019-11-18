@@ -9,12 +9,14 @@ namespace DataRepository.DbEntities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid RegionId { get; set; }
+        public int RegionId { get; set; }
         public string Name { get; set; }
 
+        public int CountryId { get; set; }
         public Country Country { get; set; }
 
         public ICollection<City> Cities { get; set; }
+
         public ICollection<WorkGeography> WorkGeographies { get; set; }
     }
 }

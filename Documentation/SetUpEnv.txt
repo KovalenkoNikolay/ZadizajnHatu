@@ -1,5 +1,8 @@
 1) docer-compose up
 2) pgAdmin: http://192.168.99.100:5050
+	login: pgadmin4@pgadmin.org
+	pass: admin
+
 	hostname: postgres
 	port: 5432
 	username: postgres

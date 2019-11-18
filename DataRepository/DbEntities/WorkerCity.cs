@@ -8,7 +8,7 @@ namespace DataRepository.DbEntities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid WorkerCityId { get; set; }
 
-        public Guid CityId { get; set; }
+        public int CityId { get; set; }
         public City City { get; set; }
 
         public Guid WorkerId { get; set; }

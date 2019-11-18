@@ -25,7 +25,7 @@ namespace PublicApi.Controllers
         }
 
         [HttpGet("")]
-        public async Task<List<WorkerPreview>> GetWorkers(WorkerSearchCriteria searchCriteria)
+        public async Task<List<WorkerPreview>> GetWorkers([FromQuery]WorkerSearchCriteria searchCriteria)
         {
             var workers = DbContext.Workers.AsQueryable();
 
@@ -39,8 +39,13 @@ namespace PublicApi.Controllers
             }
             if (searchCriteria.RemoteWork)
             {
-                workers.Where(w => w.Re == true);
+                workers.Where(w => w.RemoteWork == true);
             }
+            else 
+            {
+                workers.Where(w => w.WorkerCities.Any(wc=>wc.CityId == searchCriteria.CityId));
+            }
+
 
             var workerPreviews = Mapper.Map<List<WorkerPreview>>(workers.ToList());
 

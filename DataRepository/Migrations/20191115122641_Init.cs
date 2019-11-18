@@ -12,7 +12,8 @@ namespace DataRepository.Migrations
                 name: "Country",
                 columns: table => new
                 {
-                    CountryId = table.Column<Guid>(nullable: false),
+                    CountryId = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -37,9 +38,10 @@ namespace DataRepository.Migrations
                 name: "Region",
                 columns: table => new
                 {
-                    RegionId = table.Column<Guid>(nullable: false),
+                    RegionId = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Name = table.Column<string>(nullable: true),
-                    CountryId = table.Column<Guid>(nullable: true)
+                    CountryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,7 +51,7 @@ namespace DataRepository.Migrations
                         column: x => x.CountryId,
                         principalTable: "Country",
                         principalColumn: "CountryId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,7 +80,10 @@ namespace DataRepository.Migrations
                 {
                     WorkerId = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
+                    Avatar = table.Column<string>(nullable: true),
                     ContactInfo = table.Column<string>(nullable: true),
+                    RemoteWork = table.Column<bool>(nullable: false),
+                    RegistrationDate = table.Column<DateTime>(nullable: false),
                     WorkerTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -96,9 +101,10 @@ namespace DataRepository.Migrations
                 name: "City",
                 columns: table => new
                 {
-                    CityId = table.Column<Guid>(nullable: false),
+                    CityId = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Name = table.Column<string>(nullable: true),
-                    RegionId = table.Column<Guid>(nullable: true)
+                    RegionId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -108,11 +114,11 @@ namespace DataRepository.Migrations
                         column: x => x.RegionId,
                         principalTable: "Region",
                         principalColumn: "RegionId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PortfolioProject",
+                name: "PortfolioProjects",
                 columns: table => new
                 {
                     PortfolioProjectId = table.Column<Guid>(nullable: false),
@@ -122,9 +128,9 @@ namespace DataRepository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PortfolioProject", x => x.PortfolioProjectId);
+                    table.PrimaryKey("PK_PortfolioProjects", x => x.PortfolioProjectId);
                     table.ForeignKey(
-                        name: "FK_PortfolioProject_Workers_WorkerId",
+                        name: "FK_PortfolioProjects_Workers_WorkerId",
                         column: x => x.WorkerId,
                         principalTable: "Workers",
                         principalColumn: "WorkerId",
@@ -144,6 +150,26 @@ namespace DataRepository.Migrations
                     table.PrimaryKey("PK_WorkerPrice", x => x.WorkerPriceId);
                     table.ForeignKey(
                         name: "FK_WorkerPrice_Workers_WorkerId",
+                        column: x => x.WorkerId,
+                        principalTable: "Workers",
+                        principalColumn: "WorkerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkerReviews",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Rating = table.Column<int>(nullable: false),
+                    Comment = table.Column<string>(nullable: true),
+                    WorkerId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkerReviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkerReviews_Workers_WorkerId",
                         column: x => x.WorkerId,
                         principalTable: "Workers",
                         principalColumn: "WorkerId",
@@ -180,7 +206,7 @@ namespace DataRepository.Migrations
                 columns: table => new
                 {
                     WorkerCityId = table.Column<Guid>(nullable: false),
-                    CityId = table.Column<Guid>(nullable: false),
+                    CityId = table.Column<int>(nullable: false),
                     WorkerId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -205,9 +231,9 @@ namespace DataRepository.Migrations
                 columns: table => new
                 {
                     WorkGeographyId = table.Column<Guid>(nullable: false),
-                    CityId = table.Column<Guid>(nullable: true),
-                    RegionId = table.Column<Guid>(nullable: true),
-                    CountryId = table.Column<Guid>(nullable: true),
+                    CityId = table.Column<int>(nullable: true),
+                    RegionId = table.Column<int>(nullable: true),
+                    CountryId = table.Column<int>(nullable: true),
                     WorkerId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -252,12 +278,17 @@ namespace DataRepository.Migrations
                 {
                     table.PrimaryKey("PK_Image", x => x.ImageId);
                     table.ForeignKey(
-                        name: "FK_Image_PortfolioProject_PortfolioProjectId",
+                        name: "FK_Image_PortfolioProjects_PortfolioProjectId",
                         column: x => x.PortfolioProjectId,
-                        principalTable: "PortfolioProject",
+                        principalTable: "PortfolioProjects",
                         principalColumn: "PortfolioProjectId",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Country",
+                columns: new[] { "CountryId", "Name" },
+                values: new object[] { 1, "Украина" });
 
             migrationBuilder.InsertData(
                 table: "WorkerType",
@@ -270,9 +301,74 @@ namespace DataRepository.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "RegionId", "CountryId", "Name" },
+                values: new object[,]
+                {
+                    { 1, 1, "Киевская" },
+                    { 22, 1, "Черниговская" },
+                    { 21, 1, "Черкасская" },
+                    { 20, 1, "Хмельницкая" },
+                    { 19, 1, "Херсонская" },
+                    { 18, 1, "Харьковская" },
+                    { 17, 1, "Тернопольская" },
+                    { 16, 1, "Сумская" },
+                    { 15, 1, "Ровненская" },
+                    { 14, 1, "Полтавская" },
+                    { 13, 1, "Одесская" },
+                    { 12, 1, "Николаевская" },
+                    { 11, 1, "Львовская" },
+                    { 10, 1, "Луганская" },
+                    { 9, 1, "Кировоградская" },
+                    { 8, 1, "Ивано-Франковская" },
+                    { 7, 1, "Закарпатская" },
+                    { 6, 1, "Житомирская" },
+                    { 5, 1, "Донецкая" },
+                    { 4, 1, "Днепропетровская" },
+                    { 3, 1, "Волынская" },
+                    { 2, 1, "Винницкая" },
+                    { 23, 1, "Черновицкая" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Workers",
-                columns: new[] { "WorkerId", "ContactInfo", "Name", "WorkerTypeId" },
-                values: new object[] { new Guid("22219702-c91c-4da5-9f96-d24baa8526b6"), "Ломоносова 46/1", "Veranda Design Studio", 1 });
+                columns: new[] { "WorkerId", "Avatar", "ContactInfo", "Name", "RegistrationDate", "RemoteWork", "WorkerTypeId" },
+                values: new object[] { new Guid("e84c3e1b-a590-4e89-95a4-75c0e9cc951f"), null, "{\"address\":\"Ломоносова 50\",\"email\":\"verandadesignstuio@gmail.com\",\"phones\":[\"+1111111111\",\"222222222222\"],\"site\":\"verandadesignstuion.com\",\"socialMedia\":{\"instagram\":\"instagramVeranda\",\"facebook\":\"facebookVeranda\",\"pinterest\":\"pinterestVeranda\"}}", "Veranda Design Studio", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 1 });
+
+            migrationBuilder.InsertData(
+                table: "City",
+                columns: new[] { "CityId", "Name", "RegionId" },
+                values: new object[,]
+                {
+                    { 1, "Киев", 1 },
+                    { 22, "Ладижин", 2 },
+                    { 21, "Козятин", 2 },
+                    { 20, "Гайсин", 2 },
+                    { 19, "Хмельник", 2 },
+                    { 18, "Могилёв-Подольский", 2 },
+                    { 17, "Жмеринка", 2 },
+                    { 16, "Винница", 2 },
+                    { 15, "Яготин", 1 },
+                    { 14, "Славутич", 1 },
+                    { 13, "Вышгород", 1 },
+                    { 12, "Переяслав", 1 },
+                    { 11, "Буча", 1 },
+                    { 10, "Обухов", 1 },
+                    { 9, "Боярка", 1 },
+                    { 8, "Васильков", 1 },
+                    { 7, "Вишнёвое", 1 },
+                    { 6, "Ирпень", 1 },
+                    { 5, "Фастов", 1 },
+                    { 4, "Борисполь", 1 },
+                    { 3, "Бровары", 1 },
+                    { 2, "Белая Церковь", 1 },
+                    { 23, "Калиновка", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "WorkerPrice",
+                columns: new[] { "WorkerPriceId", "Amount", "WorkerId" },
+                values: new object[] { new Guid("0e94650f-b0f9-4dc1-9e2e-4c4e5cca147b"), 10m, new Guid("e84c3e1b-a590-4e89-95a4-75c0e9cc951f") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_City_RegionId",
@@ -285,8 +381,8 @@ namespace DataRepository.Migrations
                 column: "PortfolioProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PortfolioProject_WorkerId",
-                table: "PortfolioProject",
+                name: "IX_PortfolioProjects_WorkerId",
+                table: "PortfolioProjects",
                 column: "WorkerId");
 
             migrationBuilder.CreateIndex(
@@ -314,6 +410,11 @@ namespace DataRepository.Migrations
                 table: "WorkerPrice",
                 column: "WorkerId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkerReviews_WorkerId",
+                table: "WorkerReviews",
+                column: "WorkerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Workers_WorkerTypeId",
@@ -363,13 +464,16 @@ namespace DataRepository.Migrations
                 name: "WorkerPrice");
 
             migrationBuilder.DropTable(
+                name: "WorkerReviews");
+
+            migrationBuilder.DropTable(
                 name: "WorkerService");
 
             migrationBuilder.DropTable(
                 name: "WorkGeography");
 
             migrationBuilder.DropTable(
-                name: "PortfolioProject");
+                name: "PortfolioProjects");
 
             migrationBuilder.DropTable(
                 name: "Service");

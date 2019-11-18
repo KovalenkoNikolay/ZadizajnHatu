@@ -9,9 +9,10 @@ namespace DataRepository.DbEntities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CityId { get; set; }
+        public int CityId { get; set; }
         public string Name { get; set; }
 
+        public int RegionId { get; set; }
         public Region Region { get; set; }
 
         public ICollection<WorkerCity> WorkerCities { get; set; }

@@ -6,7 +6,7 @@
 
         public int? AmountTo { get; set; }
 
-        public string City { get; set; }
+        public int CityId { get; set; }
 
         public bool RemoteWork { get; set; }
 

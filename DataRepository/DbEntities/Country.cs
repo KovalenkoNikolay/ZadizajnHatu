@@ -9,7 +9,7 @@ namespace DataRepository.DbEntities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CountryId { get; set; }
+        public int CountryId { get; set; }
         public string Name { get; set; }
 
         public ICollection<Region> Regions { get; set; }
